@@ -27,18 +27,21 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   //------------------------ Overrides:
 
   @Override
-  public Object visitId(bnfParser.IdContext ctx) {
-    return super.visitId(ctx); //To change body of generated methods, choose Tools | Templates.
+  public String visitId(bnfParser.IdContext ctx) {
+    return ctx.getText();
   }
 
   @Override
-  public Object visitText(bnfParser.TextContext ctx) {
-    return super.visitText(ctx); //To change body of generated methods, choose Tools | Templates.
+  public List<String> visitText(bnfParser.TextContext ctx) {
+    List<String> str = new LinkedList<>();
+    str.add(ctx.STRINGLITERAL().getText());
+    str.add(ctx.TEXT().getText());
+    return str;
   }
 
   @Override
-  public Object visitCaptext(bnfParser.CaptextContext ctx) {
-    return super.visitCaptext(ctx); //To change body of generated methods, choose Tools | Templates.
+  public String visitCaptext(bnfParser.CaptextContext ctx) {
+    return ctx.getText();
   }
 
   @Override
@@ -57,23 +60,58 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   }
 
   @Override
-  public Object visitElement(bnfParser.ElementContext ctx) {
-    return super.visitElement(ctx); //To change body of generated methods, choose Tools | Templates.
+  public List<String> visitElement(bnfParser.ElementContext ctx) {
+    List<String> result = new LinkedList<>();
+    if(!ctx.optional().isEmpty()) {
+      result = visitAlternatives(ctx.optional().alternatives());
+    }
+    else if(!ctx.zeroormore().isEmpty()) {
+      result = visitAlternatives(ctx.zeroormore().alternatives()); // one time
+      result.add(""); // zero time
+    }
+    else if(!ctx.oneormore().isEmpty()) {
+      result = visitAlternatives(ctx.oneormore().alternatives()); // one time
+      List<String> twoLs = combineTwoLists(result,result); //two times
+      result.addAll(twoLs);
+    }
+    else if(!ctx.optional().isEmpty()) {
+      //currently similar to zero of mroe times
+      result = visitAlternatives(ctx.zeroormore().alternatives()); // one time
+      result.add(""); // zero time
+    }
+    else if(!ctx.captext().isEmpty()) {
+      result.add(visitCaptext(ctx.captext()));
+    }
+    else if(!ctx.text().isEmpty()) {
+      result = visitText(ctx.text());
+    }
+    else {
+      result.add(visitId(ctx.id()));
+    }
+    return result;
   }
 
   @Override
-  public Object visitAlternative(bnfParser.AlternativeContext ctx) {
-    return super.visitAlternative(ctx); //To change body of generated methods, choose Tools | Templates.
+  public List<String> visitAlternative(bnfParser.AlternativeContext ctx) {
+    List<List<String>> comStr = new LinkedList<>();
+    for(bnfParser.ElementContext ec1 : ctx.element()) {
+     comStr.add(visitElement(ec1));
+    }
+    return generateAllStrings(comStr, new LinkedList<String>());
   }
 
   @Override
-  public Object visitAlternatives(bnfParser.AlternativesContext ctx) {
-    return super.visitAlternatives(ctx); //To change body of generated methods, choose Tools | Templates.
+  public List<String> visitAlternatives(bnfParser.AlternativesContext ctx) {
+    List<String> altStrs = new LinkedList<>();
+    for(bnfParser.AlternativeContext ac : ctx.alternative()) {
+      altStrs.addAll(visitAlternative(ac));
+    }
+    return altStrs;
   }
 
   @Override
-  public Object visitRhs(bnfParser.RhsContext ctx) {
-    return super.visitRhs(ctx); //To change body of generated methods, choose Tools | Templates.
+  public List<String> visitRhs(bnfParser.RhsContext ctx) {
+    return visitAlternatives(ctx.alternatives()); 
   }
 
   @Override
@@ -82,19 +120,40 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   }
 
   @Override
-  public Object visitRule_(bnfParser.Rule_Context ctx) {
-    return super.visitRule_(ctx); //To change body of generated methods, choose Tools | Templates.
+  public List<String> visitRule_(bnfParser.Rule_Context ctx) {
+    return visitRhs(ctx.rhs());
   }
 
   @Override
-  public Object visitRulelist(bnfParser.RulelistContext ctx) {
+  public List<String> visitRulelist(bnfParser.RulelistContext ctx) {
     List<String> sentences = new LinkedList();
-    return super.visitRulelist(ctx); //To change body of generated methods, choose Tools | Templates.
+    for(bnfParser.Rule_Context rc : ctx.rule_()) {
+      sentences.addAll(visitRule_(rc));
+    }
+    return sentences;
   }
   
   //---------------------------- Abstract Methods -----------------------------
 
   //---------------------------- Utility Methods ------------------------------
+  
+  private List<String> generateAllStrings(List<List<String>> strList, List<String> result) {
+    if(strList.size()>0) {
+      List<String> newResult = combineTwoLists(result,strList.get(0));
+      return generateAllStrings(strList, newResult);
+    }
+    return result;
+  }
+  
+  private List<String> combineTwoLists(List<String> preList, List<String> postList) {
+    List<String> combList = new LinkedList<>();
+    for(String s1 : preList) {
+      for(String s2 : postList) {
+        combList.add(s1+s2);
+      }
+    }
+    return combList;
+  }
 
   //---------------------------- Property Methods -----------------------------
   
