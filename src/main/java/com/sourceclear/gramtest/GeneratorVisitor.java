@@ -98,7 +98,9 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     for(bnfParser.ElementContext ec1 : ctx.element()) {
      comStr.add(visitElement(ec1));
     }
-    return generateAllStrings(comStr, new LinkedList<String>());
+    List<String> emptyStr = new LinkedList<>();
+    emptyStr.add("");
+    return generateAllStrings(comStr, emptyStr);
   }
 
   @Override
