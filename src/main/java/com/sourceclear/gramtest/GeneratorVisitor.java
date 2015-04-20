@@ -4,8 +4,10 @@
 
 package com.sourceclear.gramtest;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -17,6 +19,8 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   ////////////////////////////// Class Methods \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
   //////////////////////////////// Attributes \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+  
+  private final Map<String,bnfParser.RhsContext> productionsMap = new HashMap<>();
           
   /////////////////////////////// Constructors \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -32,11 +36,8 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   }
 
   @Override
-  public List<String> visitText(bnfParser.TextContext ctx) {
-    List<String> str = new LinkedList<>();
-    str.add(ctx.STRINGLITERAL().getText());
-    str.add(ctx.TEXT().getText());
-    return str;
+  public String visitText(bnfParser.TextContext ctx) {
+    return ctx.getText();
   }
 
   @Override
@@ -83,10 +84,10 @@ public class GeneratorVisitor extends bnfBaseVisitor {
       result.add(visitCaptext(ctx.captext()));
     }
     else if(ctx.text() != null) {
-      result = visitText(ctx.text());
+      result.add(visitText(ctx.text()));
     }
     else {
-      // result.add(visitId(ctx.id())); // do nothing for id
+      return visitRhs(productionsMap.get(ctx.id().getText()));
     }
     return result;
   }
@@ -127,6 +128,9 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   @Override
   public List<String> visitRulelist(bnfParser.RulelistContext ctx) {
     List<String> sentences = new LinkedList();
+    for(bnfParser.Rule_Context rc : ctx.rule_()) {
+      productionsMap.put(rc.lhs().id().getText(), rc.rhs());
+    }
     for(bnfParser.Rule_Context rc : ctx.rule_()) {
       sentences.addAll(visitRule_(rc));
     }
