@@ -27,8 +27,8 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   //------------------------ Overrides:
 
   @Override
-  public String visitId(bnfParser.IdContext ctx) {
-    return ctx.getText();
+  public Object visitId(bnfParser.IdContext ctx) {
+    return super.visitId(ctx);
   }
 
   @Override
@@ -62,31 +62,31 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   @Override
   public List<String> visitElement(bnfParser.ElementContext ctx) {
     List<String> result = new LinkedList<>();
-    if(!ctx.optional().isEmpty()) {
+    if(ctx.optional() != null) {
       result = visitAlternatives(ctx.optional().alternatives());
     }
-    else if(!ctx.zeroormore().isEmpty()) {
+    else if(ctx.zeroormore() != null) {
       result = visitAlternatives(ctx.zeroormore().alternatives()); // one time
       result.add(""); // zero time
     }
-    else if(!ctx.oneormore().isEmpty()) {
+    else if(ctx.oneormore() != null) {
       result = visitAlternatives(ctx.oneormore().alternatives()); // one time
       List<String> twoLs = combineTwoLists(result,result); //two times
       result.addAll(twoLs);
     }
-    else if(!ctx.optional().isEmpty()) {
+    else if(ctx.optional() != null) {
       //currently similar to zero of mroe times
       result = visitAlternatives(ctx.zeroormore().alternatives()); // one time
       result.add(""); // zero time
     }
-    else if(!ctx.captext().isEmpty()) {
+    else if(ctx.captext() != null) {
       result.add(visitCaptext(ctx.captext()));
     }
-    else if(!ctx.text().isEmpty()) {
+    else if(ctx.text() != null) {
       result = visitText(ctx.text());
     }
     else {
-      result.add(visitId(ctx.id()));
+      // result.add(visitId(ctx.id())); // do nothing for id
     }
     return result;
   }
@@ -138,8 +138,8 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   //---------------------------- Utility Methods ------------------------------
   
   private List<String> generateAllStrings(List<List<String>> strList, List<String> result) {
-    if(strList.size()>0) {
-      List<String> newResult = combineTwoLists(result,strList.get(0));
+    if(strList.size() > 0) {
+      List<String> newResult = combineTwoLists(result,strList.remove(0));
       return generateAllStrings(strList, newResult);
     }
     return result;
