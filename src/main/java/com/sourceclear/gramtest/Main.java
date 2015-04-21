@@ -39,7 +39,7 @@ public class Main {
     Option help = new Option("h","help",false,"prints this message");
     Option grammarfile = OptionBuilder.withArgName("grammar file")
                                       .hasArg()
-                                      .withDescription("path to the grammar file (in BNF notion)")
+                                      .withDescription("path to the grammar file (in BNF notation)")
                                       .create("file");
     Option testsfolder = OptionBuilder.withArgName("test folder")
                                       .hasArg()
