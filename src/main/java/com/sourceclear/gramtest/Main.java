@@ -67,7 +67,7 @@ public class Main {
           lexer = new bnfLexer(new ANTLRFileStream(filename));        
           CommonTokenStream tokens = new CommonTokenStream(lexer);
           bnfParser grammarparser = new bnfParser(tokens);
-          grammarparser.setTrace(true);
+          //grammarparser.setTrace(true);
           ParserRuleContext tree = grammarparser.rulelist();
           GeneratorVisitor extractor = new GeneratorVisitor();
           extractor.visit(tree);

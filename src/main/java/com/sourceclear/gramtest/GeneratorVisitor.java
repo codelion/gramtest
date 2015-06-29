@@ -21,15 +21,21 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   //////////////////////////////// Attributes \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   
   private final Map<String,bnfParser.RhsContext> productionsMap = new HashMap<>();
+  private int maxStringLength = 2;
           
   /////////////////////////////// Constructors \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+  
+  public GeneratorVisitor() {
+  }
+  
+  public GeneratorVisitor(int max) {
+    maxStringLength = max;
+  }
 
   ////////////////////////////////// Methods \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
   //------------------------ Implements:
-
   //------------------------ Overrides:
-
+  
   @Override
   public Object visitId(bnfParser.IdContext ctx) {
     return super.visitId(ctx);
@@ -73,7 +79,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
       result.addAll(twoLs);
     }
     else if(ctx.optional() != null) {
-      //currently similar to zero of mroe times
+      //currently similar to zero of more times
       result = visitAlternatives(ctx.zeroormore().alternatives()); // one time
       result.add(""); // zero time
     }
@@ -152,7 +158,8 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     List<String> combList = new LinkedList<>();
     for(String s1 : preList) {
       for(String s2 : postList) {
-        combList.add(s1+s2);
+        if(s1.length() + s2.length() <= maxStringLength)
+          combList.add(s1+s2);
       }
     }
     return combList;
