@@ -63,10 +63,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   @Override
   public List<String> visitElement(bnfParser.ElementContext ctx) {
     List<String> result = new LinkedList<>();
-    if(ctx.optional() != null) {
-      result = visitAlternatives(ctx.optional().alternatives());
-    }
-    else if(ctx.zeroormore() != null) {
+    if(ctx.zeroormore() != null) {
       result = visitAlternatives(ctx.zeroormore().alternatives()); // one time
       result.add(""); // zero time
     }
