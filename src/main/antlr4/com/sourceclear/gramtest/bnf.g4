@@ -63,15 +63,15 @@ element
     ;
 
 optional
-    : REND alternatives LEND
+    : LEND alternatives REND
     ;
 
 zeroormore
-    : RBRACE alternatives LBRACE
+    : LBRACE alternatives RBRACE
     ;
 
 oneormore
-    : RPAREN alternatives LPAREN
+    : LPAREN alternatives RPAREN
     ;
 
 captext
@@ -96,27 +96,27 @@ ASSIGN
     ;
 
 LPAREN
-    : ')'
-    ;
-
-RPAREN
     : '('
     ;
 
-LBRACE
-    : '}'
+RPAREN
+    : ')'
     ;
 
-RBRACE
+LBRACE
     : '{'
     ;
 
+RBRACE
+    : '}'
+    ;
+
 LEND
-    : ']'
+    : '['
     ;
 
 REND
-    : '['
+    : ']'
     ;
 
 BAR
