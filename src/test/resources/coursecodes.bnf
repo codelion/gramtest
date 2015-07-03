@@ -1,6 +1,6 @@
   <coursecode>   ::= <acadunit> <coursenumber>
-  <acadunit>     ::= <letter> <letter> 
-  <coursenumber> ::= <year> <semesters> <digit>
+  <acadunit>     ::= <letter> <letter> <letter>
+  <coursenumber> ::= <year> <semesters> <digit> <digit>
   <year>         ::= <ugrad> | <grad>
   <ugrad>        ::= 0 | 1 | 2 | 3 | 4
   <grad>         ::= 5 | 6 | 7 | 9

@@ -21,7 +21,8 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   //////////////////////////////// Attributes \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   
   private final Map<String,bnfParser.RhsContext> productionsMap = new HashMap<>();
-  private int maxStringLength = 8;
+  private int max = 100;
+  private List<String> tests = new LinkedList<>();
           
   /////////////////////////////// Constructors \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   
@@ -29,7 +30,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   }
   
   public GeneratorVisitor(int max) {
-    maxStringLength = max;
+    this.max = max;
   }
 
   ////////////////////////////////// Methods \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -131,19 +132,20 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   }
 
   @Override
-  public List<String> visitRulelist(bnfParser.RulelistContext ctx) {
+  public Object visitRulelist(bnfParser.RulelistContext ctx) {
     List<String> sentences = new LinkedList();
     for(bnfParser.Rule_Context rc : ctx.rule_()) {
       productionsMap.put(rc.lhs().id().getText(), rc.rhs());
     }
-    // Should not visit all the rules 
+    // Should not visit all the rules, but start from the top one
     /*
     for(bnfParser.Rule_Context rc : ctx.rule_()) {
       sentences.addAll(visitRule_(rc));
     }
     */
     sentences.addAll(visitRule_(ctx.rule_(0)));
-    return sentences;
+    tests = sentences;
+    return super.visitRulelist(ctx);
   }
   
   //---------------------------- Abstract Methods -----------------------------
@@ -163,7 +165,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     List<String> combList = new LinkedList<>();
     for(String s1 : preList) {
       for(String s2 : postList) {
-        if(s1.length() + s2.length() <= maxStringLength)
+        if(combList.size() < max)
           combList.add(s1+s2);
       }
     }
@@ -171,5 +173,9 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   }
 
   //---------------------------- Property Methods -----------------------------
+  
+  public List<String> getTests() {
+    return tests;
+  }
   
 }
