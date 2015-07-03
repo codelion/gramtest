@@ -4,7 +4,12 @@
 
 package com.sourceclear.gramtest;
 
+import com.google.common.io.Files;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,8 +96,22 @@ public class Main {
           GeneratorVisitor extractor = new GeneratorVisitor(max,depth);
           extractor.visit(tree);
           List<String> generatedTests = extractor.getTests();
-          for(String s : generatedTests) {
-            System.out.println(s);
+          System.out.println("Generating tests ...");
+          if(line.hasOption("tests")) {
+            String folderPath = line.getOptionValue("tests");
+            int i = 1;
+            for(String s: generatedTests) {
+              File f = new File(folderPath+"/"+i+".txt");
+              Files.createParentDirs(f);
+              Files.write(s, f, Charset.forName("UTF-8"));
+              i++;
+            }
+            System.out.println("All tests have been saved in the folder "+ folderPath);
+          }
+          else {
+            for(String s : generatedTests) {
+              System.out.println(s);
+            }
           }
         }
         catch (IOException ex) {
