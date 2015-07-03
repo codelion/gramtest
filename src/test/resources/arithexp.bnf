@@ -1,6 +1,6 @@
-<primary>     ::=   "(" <expression> ")"
-<expression>  ::=   <term> | <term> <addOps> <expression> 
-<term>        ::=   <factor> | <factor> <multOps> <term>
+<primary>     ::=   "(" <primary> ")" | <expression>
+<expression>  ::=   <term> <addOps> <expression> | <term>
+<term>        ::=   <factor> <multOps> <term> | <factor>
 <addOps>      ::=   + | -
 <multOps>     ::=   * | /
 <factor>      ::=   0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
