@@ -10,6 +10,7 @@ To take a look at all the addtional options, you can run `java -jar gramtest.jar
 
 ```
 usage: gramtest [options]
+ -dep <depth of rules>    maximum depth of production rules to be followed
  -ext <extension>         file extension for generated tests
  -file <grammar file>     path to the grammar file (in BNF notation)
  -h,--help                prints this message
