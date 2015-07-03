@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
-import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  *
@@ -50,7 +49,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   @Override
   public String visitText(bnfParser.TextContext ctx) {
     if(ctx.STRINGLITERAL() != null) {
-      return StringEscapeUtils.unescapeJava(ctx.getText());
+      return unquote(ctx.getText());
     }
     return ctx.getText();
   }
@@ -169,6 +168,13 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   //---------------------------- Abstract Methods -----------------------------
 
   //---------------------------- Utility Methods ------------------------------
+  
+  private String unquote(String s) {
+    if (s != null && ((s.startsWith("\"") && s.endsWith("\"")) || (s.startsWith("'") && s.endsWith("'")))) {
+      s = s.substring(1, s.length() - 1);
+    }
+    return s;
+  }
   
   private List<String> generateAllStrings(List<List<String>> strList, List<String> result) {
     if(strList.size() > 0) {
