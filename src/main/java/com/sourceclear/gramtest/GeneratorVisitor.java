@@ -21,16 +21,20 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   //////////////////////////////// Attributes \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   
   private final Map<String,bnfParser.RhsContext> productionsMap = new HashMap<>();
-  private int max = 100;
+  private int maxNum = 100;
+  private int maxDepth = 4;
   private List<String> tests = new LinkedList<>();
+  private int currentDepth = 0;
+  private String currentProd = "";
           
   /////////////////////////////// Constructors \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   
   public GeneratorVisitor() {
   }
   
-  public GeneratorVisitor(int max) {
-    this.max = max;
+  public GeneratorVisitor(int max, int depth) {
+    maxNum = max;
+    maxDepth = depth;
   }
 
   ////////////////////////////////// Methods \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -54,17 +58,17 @@ public class GeneratorVisitor extends bnfBaseVisitor {
 
   @Override
   public Object visitOneormore(bnfParser.OneormoreContext ctx) {
-    return super.visitOneormore(ctx); //To change body of generated methods, choose Tools | Templates.
+    return super.visitOneormore(ctx); 
   }
 
   @Override
   public Object visitZeroormore(bnfParser.ZeroormoreContext ctx) {
-    return super.visitZeroormore(ctx); //To change body of generated methods, choose Tools | Templates.
+    return super.visitZeroormore(ctx); 
   }
 
   @Override
   public Object visitOptional(bnfParser.OptionalContext ctx) {
-    return super.visitOptional(ctx); //To change body of generated methods, choose Tools | Templates.
+    return super.visitOptional(ctx); 
   }
 
   @Override
@@ -91,7 +95,16 @@ public class GeneratorVisitor extends bnfBaseVisitor {
       result.add(visitText(ctx.text()));
     }
     else {
-      return visitRhs(productionsMap.get(ctx.id().getText()));
+      String lhs = ctx.id().getText();
+      if(currentProd.equals(lhs)) 
+        currentDepth++;
+      else {
+        currentDepth = 0;
+        currentProd = lhs;
+      }
+      if (currentDepth < maxDepth)
+        return visitRhs(productionsMap.get(lhs));
+      else return new LinkedList<>();
     }
     return result;
   }
@@ -123,7 +136,8 @@ public class GeneratorVisitor extends bnfBaseVisitor {
 
   @Override
   public Object visitLhs(bnfParser.LhsContext ctx) {
-    return super.visitLhs(ctx); //To change body of generated methods, choose Tools | Templates.
+    currentProd = ctx.id().getText();
+    return super.visitLhs(ctx);
   }
 
   @Override
@@ -165,7 +179,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     List<String> combList = new LinkedList<>();
     for(String s1 : preList) {
       for(String s2 : postList) {
-        if(combList.size() < max)
+        if(combList.size() < maxNum)
           combList.add(s1+s2);
       }
     }
