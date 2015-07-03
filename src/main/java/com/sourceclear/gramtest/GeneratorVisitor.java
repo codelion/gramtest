@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  *
@@ -22,10 +23,9 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   
   private final Map<String,bnfParser.RhsContext> productionsMap = new HashMap<>();
   private int maxNum = 100;
-  private int maxDepth = 4;
+  private int maxDepth = 0;
   private List<String> tests = new LinkedList<>();
-  private int currentDepth = 0;
-  private String currentProd = "";
+  private Stack<String> prodHist = new Stack<>();
           
   /////////////////////////////// Constructors \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   
@@ -96,15 +96,8 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     }
     else {
       String lhs = ctx.id().getText();
-      if(currentProd.equals(lhs)) 
-        currentDepth++;
-      else {
-        currentDepth = 0;
-        currentProd = lhs;
-      }
-      if (currentDepth < maxDepth)
-        return visitRhs(productionsMap.get(lhs));
-      else return new LinkedList<>();
+      prodHist.push(lhs);
+      return visitRhs(productionsMap.get(lhs));
     }
     return result;
   }
@@ -124,19 +117,21 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   public List<String> visitAlternatives(bnfParser.AlternativesContext ctx) {
     List<String> altStrs = new LinkedList<>();
     for(bnfParser.AlternativeContext ac : ctx.alternative()) {
-      altStrs.addAll(visitAlternative(ac));
+      if(prodHist.size() < maxDepth)
+        altStrs.addAll(visitAlternative(ac));
     }
     return altStrs;
   }
 
   @Override
   public List<String> visitRhs(bnfParser.RhsContext ctx) {
-    return visitAlternatives(ctx.alternatives()); 
+    List<String> tmp = visitAlternatives(ctx.alternatives());
+    if(!prodHist.empty()) prodHist.pop();
+    return tmp; 
   }
 
   @Override
   public Object visitLhs(bnfParser.LhsContext ctx) {
-    currentProd = ctx.id().getText();
     return super.visitLhs(ctx);
   }
 
@@ -151,6 +146,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     for(bnfParser.Rule_Context rc : ctx.rule_()) {
       productionsMap.put(rc.lhs().id().getText(), rc.rhs());
     }
+    maxDepth = maxDepth + productionsMap.size();
     // Should not visit all the rules, but start from the top one
     /*
     for(bnfParser.Rule_Context rc : ctx.rule_()) {

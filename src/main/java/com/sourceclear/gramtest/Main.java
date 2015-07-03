@@ -78,7 +78,7 @@ public class Main {
           bnfParser grammarparser = new bnfParser(tokens);
           //grammarparser.setTrace(true);
           ParserRuleContext tree = grammarparser.rulelist();
-          GeneratorVisitor extractor = new GeneratorVisitor(max);
+          GeneratorVisitor extractor = new GeneratorVisitor(max,0);
           extractor.visit(tree);
           List<String> generatedTests = extractor.getTests();
           for(String s : generatedTests) {
