@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  *
@@ -48,6 +49,9 @@ public class GeneratorVisitor extends bnfBaseVisitor {
 
   @Override
   public String visitText(bnfParser.TextContext ctx) {
+    if(ctx.STRINGLITERAL() != null) {
+      return StringEscapeUtils.unescapeJava(ctx.getText());
+    }
     return ctx.getText();
   }
 
