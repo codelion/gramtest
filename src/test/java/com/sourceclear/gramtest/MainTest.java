@@ -64,4 +64,19 @@ public class MainTest extends TestCase {
     Assert.assertEquals(100,generatedTests.size());
   }
   
+  /**
+   * Test with main grammar
+   * @throws java.io.IOException
+   */
+  public void testMainStrGram() throws IOException {
+    Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/main.bnf")));        
+    CommonTokenStream tokens = new CommonTokenStream(lexer);
+    bnfParser grammarparser = new bnfParser(tokens);
+    ParserRuleContext tree = grammarparser.rulelist();
+    GeneratorVisitor extractor = new GeneratorVisitor();
+    extractor.visit(tree);
+    List<String> generatedTests = extractor.getTests();
+    Assert.assertEquals(100,generatedTests.size());
+  }
+  
 }
