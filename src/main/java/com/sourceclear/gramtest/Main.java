@@ -41,6 +41,11 @@ public class Main {
                                     .hasArg()
                                     .withDescription("maximum number of test cases to be generated")
                                     .create("num");
+    Option depthoption = OptionBuilder.withType(Integer.class)
+                                    .withArgName("depth of rules to follow")
+                                    .hasArg()
+                                    .withDescription("maximum depth of production rules to be followed")
+                                    .create("dep");
     Option grammarfile = OptionBuilder.withArgName("grammar file")
                                       .hasArg()
                                       .withDescription("path to the grammar file (in BNF notation)")
@@ -58,6 +63,7 @@ public class Main {
     options.addOption(testsfolder);
     options.addOption(extension);
     options.addOption(maxoption);
+    options.addOption(depthoption);
     try {
       // parse the command line arguments
       CommandLine line = parser.parse(options, args);
@@ -68,9 +74,13 @@ public class Main {
       else if(line.hasOption("file")) {
         String filename = line.getOptionValue("file");
         int max = 100;
+        int depth = 0;
         if(line.hasOption("num")) {
             max = Integer.valueOf(line.getOptionValue("num"));
         }
+        if(line.hasOption("dep")) {
+            depth = Integer.valueOf(line.getOptionValue("dep"));
+        }       
         Lexer lexer;
         try {
           lexer = new bnfLexer(new ANTLRFileStream(filename));        
@@ -78,7 +88,7 @@ public class Main {
           bnfParser grammarparser = new bnfParser(tokens);
           //grammarparser.setTrace(true);
           ParserRuleContext tree = grammarparser.rulelist();
-          GeneratorVisitor extractor = new GeneratorVisitor(max,0);
+          GeneratorVisitor extractor = new GeneratorVisitor(max,depth);
           extractor.visit(tree);
           List<String> generatedTests = extractor.getTests();
           for(String s : generatedTests) {
