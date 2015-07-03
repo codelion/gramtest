@@ -74,7 +74,7 @@ public class Main {
       else if(line.hasOption("file")) {
         String filename = line.getOptionValue("file");
         int max = 100;
-        int depth = 4;
+        int depth = 2;
         if(line.hasOption("num")) {
             max = Integer.valueOf(line.getOptionValue("num"));
         }
