@@ -25,7 +25,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   private int maxNum = 100;
   private int maxDepth = 0;
   private List<String> tests = new LinkedList<>();
-  private Stack<String> prodHist = new Stack<>();
+  private final Stack<String> prodHist = new Stack<>();
           
   /////////////////////////////// Constructors \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   
@@ -154,7 +154,9 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     }
     */
     sentences.addAll(visitRule_(ctx.rule_(0)));
-    tests = sentences;
+    if(sentences.size() > maxNum)
+      tests = sentences.subList(0, maxNum); // return only top maxNum test cases
+    else tests = sentences;
     return super.visitRulelist(ctx);
   }
   
