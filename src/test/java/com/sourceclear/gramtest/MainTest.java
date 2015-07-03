@@ -13,6 +13,7 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.junit.Assert;
 
 /**
  *
@@ -46,6 +47,7 @@ public class MainTest extends TestCase {
     GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
+    Assert.assertEquals(100,generatedTests.size());
   }
   
   /**
@@ -60,7 +62,7 @@ public class MainTest extends TestCase {
     GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    
+    Assert.assertEquals(100,generatedTests.size());
   }
   
 }
