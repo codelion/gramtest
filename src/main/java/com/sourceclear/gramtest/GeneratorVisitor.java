@@ -21,7 +21,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   //////////////////////////////// Attributes \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   
   private final Map<String,bnfParser.RhsContext> productionsMap = new HashMap<>();
-  private int maxStringLength = 2;
+  private int maxStringLength = 8;
           
   /////////////////////////////// Constructors \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   
@@ -136,9 +136,13 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     for(bnfParser.Rule_Context rc : ctx.rule_()) {
       productionsMap.put(rc.lhs().id().getText(), rc.rhs());
     }
+    // Should not visit all the rules 
+    /*
     for(bnfParser.Rule_Context rc : ctx.rule_()) {
       sentences.addAll(visitRule_(rc));
     }
+    */
+    sentences.addAll(visitRule_(ctx.rule_(0)));
     return sentences;
   }
   
@@ -149,7 +153,8 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   private List<String> generateAllStrings(List<List<String>> strList, List<String> result) {
     if(strList.size() > 0) {
       List<String> newResult = combineTwoLists(result,strList.remove(0));
-      return generateAllStrings(strList, newResult);
+      if(newResult.isEmpty()) return result;
+      else return generateAllStrings(strList, newResult);
     }
     return result;
   }

@@ -69,7 +69,7 @@ public class Main {
           bnfParser grammarparser = new bnfParser(tokens);
           //grammarparser.setTrace(true);
           ParserRuleContext tree = grammarparser.rulelist();
-          GeneratorVisitor extractor = new GeneratorVisitor(7);
+          GeneratorVisitor extractor = new GeneratorVisitor();
           extractor.visit(tree);
         }
         catch (IOException ex) {
