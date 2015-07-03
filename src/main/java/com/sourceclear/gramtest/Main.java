@@ -106,7 +106,7 @@ public class Main {
               Files.write(s, f, Charset.forName("UTF-8"));
               i++;
             }
-            System.out.println("All tests have been saved in the folder "+ folderPath);
+            System.out.println("All tests have been saved in the "+ folderPath + " folder!");
           }
           else {
             for(String s : generatedTests) {
