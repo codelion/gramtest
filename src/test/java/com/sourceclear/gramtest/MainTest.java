@@ -8,7 +8,6 @@ package com.sourceclear.gramtest;
 import java.io.IOException;
 import java.util.List;
 import junit.framework.TestCase;
-import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
