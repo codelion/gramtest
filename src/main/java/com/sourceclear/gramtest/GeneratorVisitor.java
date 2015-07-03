@@ -23,7 +23,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   
   private final Map<String,bnfParser.RhsContext> productionsMap = new HashMap<>();
   private int maxNum = 100;
-  private int maxDepth = 4;
+  private int maxDepth = 0;
   private List<String> tests = new LinkedList<>();
   private final Stack<String> prodHist = new Stack<>();
           
