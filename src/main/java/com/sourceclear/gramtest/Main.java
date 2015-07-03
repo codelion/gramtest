@@ -42,7 +42,7 @@ public class Main {
                                     .withDescription("maximum number of test cases to be generated")
                                     .create("num");
     Option depthoption = OptionBuilder.withType(Integer.class)
-                                    .withArgName("depth of rules to follow")
+                                    .withArgName("depth of rules")
                                     .hasArg()
                                     .withDescription("maximum depth of production rules to be followed")
                                     .create("dep");
