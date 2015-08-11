@@ -17,3 +17,6 @@ usage: gramtest [options]
  -num <number of tests>   maximum number of test cases to be generated
  -tests <test folder>     path to the folder to store generated tests
 ```
+## Articles
+
+- [How does grammar-based test case generation work?](https://blog.srcclr.com/how-does-grammar-based-test-case-generation-work/)
