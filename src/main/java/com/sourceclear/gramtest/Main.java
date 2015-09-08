@@ -7,8 +7,6 @@ package com.sourceclear.gramtest;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.logging.Level;
