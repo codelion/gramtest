@@ -24,6 +24,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   private final Map<String,bnfParser.RhsContext> productionsMap = new HashMap<>();
   private int maxNum = 100;
   private int maxDepth = 2;
+  private boolean useMinimalGenerator = true;
   private List<String> tests = new LinkedList<>();
   private final Stack<String> prodHist = new Stack<>();
           
@@ -32,9 +33,10 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   public GeneratorVisitor() {
   }
   
-  public GeneratorVisitor(int max, int depth) {
-    maxNum = max;
-    maxDepth = depth;
+  public GeneratorVisitor(int max, int depth, boolean useMinimalGenerator) {
+    this.maxNum = max;
+    this.maxDepth = depth;
+    this.useMinimalGenerator = useMinimalGenerator;
   }
 
   ////////////////////////////////// Methods \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

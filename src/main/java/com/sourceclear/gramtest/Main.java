@@ -78,6 +78,7 @@ public class Main {
         String filename = line.getOptionValue("file");
         int max = 100;
         int depth = 2;
+        boolean useMinGen = true;
         if(line.hasOption("num")) {
             max = Integer.valueOf(line.getOptionValue("num"));
         }
@@ -91,7 +92,7 @@ public class Main {
           bnfParser grammarparser = new bnfParser(tokens);
           //grammarparser.setTrace(true);
           ParserRuleContext tree = grammarparser.rulelist();
-          GeneratorVisitor extractor = new GeneratorVisitor(max,depth);
+          GeneratorVisitor extractor = new GeneratorVisitor(max,depth,useMinGen);
           extractor.visit(tree);
           List<String> generatedTests = extractor.getTests();
           System.out.println("Generating tests ...");
