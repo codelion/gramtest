@@ -189,6 +189,19 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   
   private List<String> combineTwoLists(List<String> preList, List<String> postList) {
     List<String> combList = new LinkedList<>();
+    
+    if(useMinimalGenerator) {
+      Stack<String> preStack = new Stack<>();
+      preStack.addAll(preList);
+      Stack<String> postStack = new Stack<>();
+      postStack.addAll(postList);
+      while(!preStack.empty() && !postStack.empty()) {
+        String s1 = preStack.pop();
+        String s2 = postStack.pop();
+        if(combList.size() < maxNum)
+          combList.add(s1+s2);
+      }
+    }
     for(String s1 : preList) {
       for(String s2 : postList) {
         if(combList.size() < maxNum)
