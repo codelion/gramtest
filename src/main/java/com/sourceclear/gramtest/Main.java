@@ -42,12 +42,12 @@ public class Main {
     Option maxoption = OptionBuilder.withType(Integer.class)
                                     .withArgName("number of tests")
                                     .hasArg()
-                                    .withDescription("maximum number of test cases to be generated")
+                                    .withDescription("maximum number of test cases")
                                     .create("num");
     Option depthoption = OptionBuilder.withType(Integer.class)
                                     .withArgName("depth of rules")
                                     .hasArg()
-                                    .withDescription("maximum depth of production rules to be followed")
+                                    .withDescription("maximum depth for recursive rules")
                                     .create("dep");
     Option grammarfile = OptionBuilder.withArgName("grammar file")
                                       .hasArg()
@@ -64,7 +64,7 @@ public class Main {
     Option usemingen = OptionBuilder.withType(Boolean.class)
                                 .withArgName("minimal generator")
                                 .hasArg()
-                                .withDescription("use a minimal sentence generator")
+                                .withDescription("use minimal sentence generation (true/false)")
                                 .create("mingen");
     options.addOption(help);
     options.addOption(grammarfile);
