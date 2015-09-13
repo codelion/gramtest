@@ -61,12 +61,18 @@ public class Main {
                                     .hasArg()
                                     .withDescription("file extension for generated tests")
                                     .create("ext");
+    Option usemingen = OptionBuilder.withType(Boolean.class)
+                                .withArgName("minimal generator")
+                                .hasArg()
+                                .withDescription("use a minimal sentence generator")
+                                .create("mingen");
     options.addOption(help);
     options.addOption(grammarfile);
     options.addOption(testsfolder);
     options.addOption(extension);
     options.addOption(maxoption);
     options.addOption(depthoption);
+    options.addOption(usemingen);
     try {
       // parse the command line arguments
       CommandLine line = parser.parse(options, args);
@@ -84,7 +90,10 @@ public class Main {
         }
         if(line.hasOption("dep")) {
             depth = Integer.valueOf(line.getOptionValue("dep"));
-        }       
+        }
+        if(line.hasOption("mingen")) {
+          useMinGen = Boolean.valueOf(line.getOptionValue("mingen"));
+        }
         Lexer lexer;
         try {
           lexer = new bnfLexer(new ANTLRFileStream(filename));        
