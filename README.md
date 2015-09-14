@@ -10,12 +10,14 @@ To take a look at all the addtional options, you can run `java -jar gramtest.jar
 
 ```
 usage: gramtest [options]
- -dep <depth of rules>    maximum depth of production rules to be followed
- -ext <extension>         file extension for generated tests
- -file <grammar file>     path to the grammar file (in BNF notation)
- -h,--help                prints this message
- -num <number of tests>   maximum number of test cases to be generated
- -tests <test folder>     path to the folder to store generated tests
+ -dep <depth of rules>         maximum depth for recursive rules
+ -ext <extension>              file extension for generated tests
+ -file <grammar file>          path to the grammar file (in BNF notation)
+ -h,--help                     prints this message
+ -mingen <minimal generator>   use minimal sentence generation
+                               (true/false)
+ -num <number of tests>        maximum number of test cases
+ -tests <test folder>          path to the folder to store generated tests
 ```
 ## Articles
 
