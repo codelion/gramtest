@@ -1,12 +1,12 @@
 # Grammar based test case generation
-This tool allows you to generate test cases based on aribitary user defined grammars. The input grammar is given in BNF notation. Potential applications include fuzzing and automated testing.
+This tool allows you to generate test cases based on arbitrary user defined grammars. The input grammar is given in BNF notation. Potential applications include fuzzing and automated testing.
 
 ## Instructions
 We use maven as our build tool. When you compile the project using maven it will generate a single Jar, that can be run from the command line as follows:
 
 `java -jar gramtest.jar -file grammar.bnf`
 
-To take a look at all the addtional options, you can run `java -jar gramtest.jar -h` which will print the details as below.
+To take a look at all the additional options, you can run `java -jar gramtest.jar -h` which will print the details as below.
 
 ```
 usage: gramtest [options]
@@ -22,4 +22,4 @@ usage: gramtest [options]
 ## Articles
 
 - [How does grammar-based test case generation work?](https://blog.srcclr.com/how-does-grammar-based-test-case-generation-work/)
-- [Practical tips for implementating grammar-based test case generation](https://blog.srcclr.com/practical-tips-for-implementing-grammar-based-test-case-generation/)
+- [Practical tips for implementing grammar-based test case generation](https://blog.srcclr.com/practical-tips-for-implementing-grammar-based-test-case-generation/)
