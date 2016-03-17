@@ -96,7 +96,7 @@ public class Main {
         }
         Lexer lexer;
         try {
-          lexer = new bnfLexer(new ANTLRFileStream(filename));        
+          lexer = new bnfLexer(new ANTLRFileStream(filename));
           CommonTokenStream tokens = new CommonTokenStream(lexer);
           bnfParser grammarparser = new bnfParser(tokens);
           //grammarparser.setTrace(true);
@@ -136,7 +136,7 @@ public class Main {
       System.err.println( "Parsing failed.  Reason: " + exp.getMessage() );
     }
   }
-  
+
   //////////////////////////////// Attributes \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
   /////////////////////////////// Constructors \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -152,5 +152,5 @@ public class Main {
   //---------------------------- Utility Methods ------------------------------
 
   //---------------------------- Property Methods -----------------------------
-  
+
 }
