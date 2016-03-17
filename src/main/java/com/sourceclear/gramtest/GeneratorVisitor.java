@@ -20,19 +20,19 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   ////////////////////////////// Class Methods \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
   //////////////////////////////// Attributes \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-  
+
   private final Map<String,bnfParser.RhsContext> productionsMap = new HashMap<>();
   private int maxNum = 100;
   private int maxDepth = 2;
   private boolean useMinimalGenerator = true;
   private List<String> tests = new LinkedList<>();
   private final Stack<String> prodHist = new Stack<>();
-          
+
   /////////////////////////////// Constructors \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-  
+
   public GeneratorVisitor() {
   }
-  
+
   public GeneratorVisitor(int max, int depth, boolean useMinimalGenerator) {
     this.maxNum = max;
     this.maxDepth = depth;
@@ -42,7 +42,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   ////////////////////////////////// Methods \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   //------------------------ Implements:
   //------------------------ Overrides:
-  
+
   @Override
   public Object visitId(bnfParser.IdContext ctx) {
     return super.visitId(ctx);
@@ -63,17 +63,17 @@ public class GeneratorVisitor extends bnfBaseVisitor {
 
   @Override
   public Object visitOneormore(bnfParser.OneormoreContext ctx) {
-    return super.visitOneormore(ctx); 
+    return super.visitOneormore(ctx);
   }
 
   @Override
   public Object visitZeroormore(bnfParser.ZeroormoreContext ctx) {
-    return super.visitZeroormore(ctx); 
+    return super.visitZeroormore(ctx);
   }
 
   @Override
   public Object visitOptional(bnfParser.OptionalContext ctx) {
-    return super.visitOptional(ctx); 
+    return super.visitOptional(ctx);
   }
 
   @Override
@@ -112,7 +112,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     List<List<String>> comStr = new LinkedList<>();
     for(bnfParser.ElementContext ec1 : ctx.element()) {
       List<String> slist = visitElement(ec1);
-      if(slist.isEmpty()) return new LinkedList<>();
+      if(slist != null && slist.isEmpty()) return new LinkedList<>();
       else comStr.add(slist);
     }
     List<String> emptyStr = new LinkedList<>();
@@ -132,9 +132,15 @@ public class GeneratorVisitor extends bnfBaseVisitor {
 
   @Override
   public List<String> visitRhs(bnfParser.RhsContext ctx) {
-    List<String> tmp = visitAlternatives(ctx.alternatives());
-    if(!prodHist.empty()) prodHist.pop();
-    return tmp; 
+    List<String> tmp = null;
+    try {
+        if (ctx != null)
+            tmp = visitAlternatives(ctx.alternatives());
+      } catch(Exception e){
+          e.printStackTrace();
+      }
+        if(!prodHist.empty()) prodHist.pop();
+        return tmp;
   }
 
   @Override
@@ -166,18 +172,18 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     else tests = sentences;
     return super.visitRulelist(ctx);
   }
-  
+
   //---------------------------- Abstract Methods -----------------------------
 
   //---------------------------- Utility Methods ------------------------------
-  
+
   private String unquote(String s) {
     if (s != null && ((s.startsWith("\"") && s.endsWith("\"")) || (s.startsWith("'") && s.endsWith("'")))) {
       s = s.substring(1, s.length() - 1);
     }
     return s;
   }
-  
+
   private List<String> generateAllStrings(List<List<String>> strList, List<String> result) {
     if(strList.size() > 0) {
       List<String> newResult = combineTwoLists(result,strList.remove(0));
@@ -186,10 +192,12 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     }
     return result;
   }
-  
+
   private List<String> combineTwoLists(List<String> preList, List<String> postList) {
     List<String> combList = new LinkedList<>();
-    
+    if (preList == null) return postList;
+    if (postList == null) return preList;
+
     if(useMinimalGenerator) {
       Stack<String> preStack = new Stack<>();
       preStack.addAll(preList);
@@ -212,9 +220,9 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   }
 
   //---------------------------- Property Methods -----------------------------
-  
+
   public List<String> getTests() {
     return tests;
   }
-  
+
 }
