@@ -17,6 +17,7 @@ usage: gramtest [options]
  -mingen <minimal generator>   use minimal sentence generation
                                (true/false)
  -num <number of tests>        maximum number of test cases
+ -size <size of test>          maximum size of each generated test
  -tests <test folder>          path to the folder to store generated tests
 ```
 ## Articles
