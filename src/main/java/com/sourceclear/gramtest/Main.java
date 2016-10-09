@@ -49,6 +49,11 @@ public class Main {
                                     .hasArg()
                                     .withDescription("maximum depth for recursive rules")
                                     .create("dep");
+    Option sizeoption = OptionBuilder.withType(Integer.class)
+            .withArgName("size of test")
+            .hasArg()
+            .withDescription("maximum size of each generated test")
+            .create("size");
     Option grammarfile = OptionBuilder.withArgName("grammar file")
                                       .hasArg()
                                       .withDescription("path to the grammar file (in BNF notation)")
@@ -73,6 +78,7 @@ public class Main {
     options.addOption(maxoption);
     options.addOption(depthoption);
     options.addOption(usemingen);
+    options.addOption(sizeoption);
     try {
       // parse the command line arguments
       CommandLine line = parser.parse(options, args);
@@ -84,12 +90,16 @@ public class Main {
         String filename = line.getOptionValue("file");
         int max = 100;
         int depth = 2;
+        int size = 4;
         boolean useMinGen = true;
         if(line.hasOption("num")) {
-            max = Integer.valueOf(line.getOptionValue("num"));
+          max = Integer.valueOf(line.getOptionValue("num"));
         }
         if(line.hasOption("dep")) {
-            depth = Integer.valueOf(line.getOptionValue("dep"));
+          depth = Integer.valueOf(line.getOptionValue("dep"));
+        }
+        if(line.hasOption("size")) {
+          size = Integer.valueOf(line.getOptionValue("size"));
         }
         if(line.hasOption("mingen")) {
           useMinGen = Boolean.valueOf(line.getOptionValue("mingen"));
@@ -101,7 +111,7 @@ public class Main {
           bnfParser grammarparser = new bnfParser(tokens);
           //grammarparser.setTrace(true);
           ParserRuleContext tree = grammarparser.rulelist();
-          GeneratorVisitor extractor = new GeneratorVisitor(max,depth,useMinGen);
+          GeneratorVisitor extractor = new GeneratorVisitor(max,depth,size,useMinGen);
           extractor.visit(tree);
           List<String> generatedTests = extractor.getTests();
           System.out.println("Generating tests ...");

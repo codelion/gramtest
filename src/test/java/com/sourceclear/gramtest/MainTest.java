@@ -73,7 +73,7 @@ public class MainTest extends TestCase {
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     bnfParser grammarparser = new bnfParser(tokens);
     ParserRuleContext tree = grammarparser.rulelist();
-    GeneratorVisitor extractor = new GeneratorVisitor();
+    GeneratorVisitor extractor = new GeneratorVisitor(100,2,100,true);
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
     Assert.assertEquals(100,generatedTests.size());

@@ -24,6 +24,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   private final Map<String,bnfParser.RhsContext> productionsMap = new HashMap<>();
   private int maxNum = 100;
   private int maxDepth = 2;
+  private int maxSize = 4;
   private boolean useMinimalGenerator = true;
   private List<String> tests = new LinkedList<>();
   private final Stack<String> prodHist = new Stack<>();
@@ -33,9 +34,10 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   public GeneratorVisitor() {
   }
   
-  public GeneratorVisitor(int max, int depth, boolean useMinimalGenerator) {
+  public GeneratorVisitor(int max, int depth, int size, boolean useMinimalGenerator) {
     this.maxNum = max;
     this.maxDepth = depth;
+    this.maxSize = size;
     this.useMinimalGenerator = useMinimalGenerator;
   }
 
@@ -170,7 +172,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   //---------------------------- Abstract Methods -----------------------------
 
   //---------------------------- Utility Methods ------------------------------
-  
+
   private String unquote(String s) {
     if (s != null && ((s.startsWith("\"") && s.endsWith("\"")) || (s.startsWith("'") && s.endsWith("'")))) {
       s = s.substring(1, s.length() - 1);
@@ -198,13 +200,13 @@ public class GeneratorVisitor extends bnfBaseVisitor {
       while(!preStack.empty() && !postStack.empty()) {
         String s1 = preStack.pop();
         String s2 = postStack.pop();
-        if(combList.size() < maxNum)
+        if(combList.size() < maxNum && (s1.length() + s2.length()) < maxSize)
           combList.add(s1+s2);
       }
     }
     for(String s1 : preList) {
       for(String s2 : postList) {
-        if(combList.size() < maxNum)
+        if(combList.size() < maxNum && (s1.length() + s2.length()) < maxSize)
           combList.add(s1+s2);
       }
     }
