@@ -39,38 +39,38 @@ public class Main {
     // create Options object
     Options options = new Options();
     Option help = new Option("h","help",false,"prints this message");
-    Option maxoption = OptionBuilder.withType(Integer.class)
-                                    .withArgName("number of tests")
+    Option maxoption = Option.builder("num").type(Integer.class)
+                                    .argName("number of tests")
                                     .hasArg()
-                                    .withDescription("maximum number of test cases")
-                                    .create("num");
-    Option depthoption = OptionBuilder.withType(Integer.class)
-                                    .withArgName("depth of rules")
+                                    .desc("maximum number of test cases")
+                                    .build();
+    Option depthoption = Option.builder("dep").type(Integer.class)
+                                    .argName("depth of rules")
                                     .hasArg()
-                                    .withDescription("maximum depth for recursive rules")
-                                    .create("dep");
-    Option sizeoption = OptionBuilder.withType(Integer.class)
-            .withArgName("size of test")
+                                    .desc("maximum depth for recursive rules")
+                                    .build();
+    Option sizeoption = Option.builder("size").type(Integer.class)
+            .argName("size of test")
             .hasArg()
-            .withDescription("maximum size of each generated test")
-            .create("size");
-    Option grammarfile = OptionBuilder.withArgName("grammar file")
+            .desc("maximum size of each generated test")
+            .build();
+    Option grammarfile = Option.builder("file").argName("grammar file")
                                       .hasArg()
-                                      .withDescription("path to the grammar file (in BNF notation)")
-                                      .create("file");
-    Option testsfolder = OptionBuilder.withArgName("test folder")
+                                      .desc("path to the grammar file (in BNF notation)")
+                                      .build();
+    Option testsfolder = Option.builder("tests").argName("test folder")
                                       .hasArg()
-                                      .withDescription("path to the folder to store generated tests")
-                                      .create("tests");
-    Option extension = OptionBuilder.withArgName("extension")
+                                      .desc("path to the folder to store generated tests")
+                                      .build();
+    Option extension = Option.builder("ext").argName("extension")
                                     .hasArg()
-                                    .withDescription("file extension for generated tests")
-                                    .create("ext");
-    Option usemingen = OptionBuilder.withType(Boolean.class)
-                                .withArgName("minimal generator")
+                                    .desc("file extension for generated tests")
+                                    .build();
+    Option usemingen = Option.builder("mingen").type(Boolean.class)
+                                .argName("minimal generator")
                                 .hasArg()
-                                .withDescription("use minimal sentence generation (true/false)")
-                                .create("mingen");
+                                .desc("use minimal sentence generation (true/false)")
+                                .build();
     options.addOption(help);
     options.addOption(grammarfile);
     options.addOption(testsfolder);
