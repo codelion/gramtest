@@ -1,0 +1,109 @@
+<url> ::= 	<httpaddress> | <ftpaddress> | <newsaddress> | <nntpaddress> |
+			<prosperoaddress> | <telnetaddress> | <gopheraddress> | <waisaddress> | 
+			<mailtoaddress>
+
+<httpaddress> ::=	h t t p : / / <hostport> [/ <path>] [? <search>]
+
+<ftpaddress> ::=	f t p : / / <login> / <path> [; <ftptype>]
+
+<newsaddress> ::=	n e w s : <groupart>
+
+<nntpaddress> ::= 	n n t p : <group> / <digits>
+
+<telnetaddress> ::=  t e l n e t : / / <login>
+
+<gopheraddress> ::=  g o p h e r : / / <hostport> [/ <gtype> [<gcommand>]]
+			
+<mailtoaddress> ::=  m a i l t o : <xalphas> @ <hostname>
+
+<waisaddress> ::=	<waisindex> | <waisdoc>
+
+<waisindex>	::=		w a i s : / / <hostport> / <database> [? <search>]
+
+<waisdoc>	::= 	w a i s : / / <hostport> / <database> / <wtype> / <wpath>
+
+<wpath>		::=		<digits> = <path> ; [<wpath>]
+
+<groupart>	::=		* | <group> | <article>
+
+<group>		::=		<ialpha> [. <group>]
+
+<article> 	::= 	<xalphas> @ <host>
+
+<database>	::=		<xalphas>
+
+<wtype>		::=		<xalphas>
+
+<prosperoaddress>	::=		<prosperolink>
+
+<prosperolink>		::=		p r o s p e r o : / / <hostport> / <hsoname> [ % 0 0 <version> [<attributes>]]
+
+<hsoname> 	::=		<path>
+
+<version>	::=		<digits>
+
+<attributes>	::=		<attribute> [<attributes>]
+
+<attribute> 	::=		<alphanums>
+
+<login>		::=		[<user> [: <password>] @ ] <hostport>
+
+<hostport>	::=		<host> [: <port>]
+
+<host>		::=		<hostname> | <hostnumber>
+
+<ftptype>	::=		A <formcode> | E <formcode> | I | L <digits>
+
+<formcode> 	::= 	N | T | C
+
+<hostname> 	::=		<ialpha> [. <hostname>]
+
+<hostnumber> ::=	<digits> . <digits> . <digits> . <digits>
+
+<port>		::=		<digits>
+
+<gcommand>	::=		<path>
+
+<path>		::=		<void> | <segment> [ / <path>]
+
+<segment>	::=		<xpalphas>
+
+<search>	::=		<xalphas> [+ <search>]
+
+<user>		::=		<alphanum2> [ <user> ]
+
+<password>	::=		<alphanum2>	[ <password> ]
+
+<gtype>		::=		<xalpha>
+
+<alphanum2>	::=		<alpha> | <digit> | - | _ | . | +
+
+<xalpha>	::=		<alpha>	| <digit> | <safe> | <extra> | <escape>
+
+<xalphas>	::=		<xalpha> [<xalphas>]
+
+<xpalpha>	::=		<xalpha> | +
+
+<xpalphas>	::=		<xpalpha> [<xpalphas>]
+
+<ialpha>	::=		<alpha> [<xalphas>]
+
+<alpha>	::= a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
+
+<digit> ::= 0 |1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+<safe> ::= $ | - | _ | @ | . | & | +
+
+<extra> ::= ! | * | " | ' | "(" | ")" | ,
+
+<escape> ::= % <hex> <hex>
+
+<hex>	::= <digit> | a | b | c | d | e | f | A | B | C | D | E | F
+
+<digits> ::= <digit> [<digits>]
+
+<alphanum> ::= <alpha> | <digit>
+
+<alphanums> ::= <alphanum> [ <alphanums> ]
+
+<void> ::= 

@@ -78,5 +78,20 @@ public class MainTest extends TestCase {
     List<String> generatedTests = extractor.getTests();
     Assert.assertEquals(100,generatedTests.size());
   }
+
+  /**
+   * Test with url grammar
+   * @throws java.io.IOException
+   */
+  public void testURLGram() throws IOException {
+    Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/url.bnf")));
+    CommonTokenStream tokens = new CommonTokenStream(lexer);
+    bnfParser grammarparser = new bnfParser(tokens);
+    ParserRuleContext tree = grammarparser.rulelist();
+    GeneratorVisitor extractor = new GeneratorVisitor(100,2,100,true);
+    extractor.visit(tree);
+    List<String> generatedTests = extractor.getTests();
+    Assert.assertEquals(100,generatedTests.size());
+  }
   
 }

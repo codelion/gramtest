@@ -92,7 +92,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     }
     else if(ctx.optional() != null) {
       //currently similar to zero of more times
-      result = visitAlternatives(ctx.zeroormore().alternatives()); // one time
+      result = visitAlternatives(ctx.optional().alternatives()); // one time
       result.add(""); // zero time
     }
     else if(ctx.captext() != null) {
