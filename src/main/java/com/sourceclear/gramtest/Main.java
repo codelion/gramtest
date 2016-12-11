@@ -15,14 +15,7 @@ import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.apache.commons.cli.BasicParser;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
 
 /**
  *
@@ -35,7 +28,7 @@ public class Main {
 
   public static void main(String[] args ) {
     // create the parser
-    CommandLineParser parser = new BasicParser();
+    CommandLineParser parser = new DefaultParser();
     // create Options object
     Options options = new Options();
     Option help = new Option("h","help",false,"prints this message");
@@ -91,6 +84,7 @@ public class Main {
         int max = 100;
         int depth = 2;
         int size = 4;
+        String extStr = "txt";
         boolean useMinGen = true;
         if(line.hasOption("num")) {
           max = Integer.valueOf(line.getOptionValue("num"));
@@ -104,9 +98,12 @@ public class Main {
         if(line.hasOption("mingen")) {
           useMinGen = Boolean.valueOf(line.getOptionValue("mingen"));
         }
+        if(line.hasOption("ext")) {
+          extStr = String.valueOf(line.getOptionValue("ext"));
+        }
         Lexer lexer;
         try {
-          lexer = new bnfLexer(new ANTLRFileStream(filename));        
+          lexer = new bnfLexer(new ANTLRFileStream(filename));
           CommonTokenStream tokens = new CommonTokenStream(lexer);
           bnfParser grammarparser = new bnfParser(tokens);
           //grammarparser.setTrace(true);
@@ -119,7 +116,7 @@ public class Main {
             String folderPath = line.getOptionValue("tests");
             int i = 1;
             for(String s: generatedTests) {
-              File f = new File(folderPath+"/"+i+".txt");
+              File f = new File(folderPath+"/"+i+"."+extStr);
               Files.createParentDirs(f);
               Files.write(s, f, Charset.forName("UTF-8"));
               i++;
