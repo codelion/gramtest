@@ -38,7 +38,7 @@ public class TestRunner implements Runnable {
 
   public void run() {
     while(true) {
-      this.extractor = new GeneratorVisitor(depth + size, depth, size, true);
+      this.extractor = new GeneratorVisitor(depth * size, depth, size, true);
       this.extractor.visit(tree);
       List<String> generatedTests = this.extractor.getTests();
       for (String s: generatedTests)
