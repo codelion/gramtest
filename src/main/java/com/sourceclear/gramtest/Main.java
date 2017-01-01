@@ -42,10 +42,15 @@ public class Main {
                                     .hasArg()
                                     .desc("maximum depth for recursive rules")
                                     .build();
-    Option sizeoption = Option.builder("size").type(Integer.class)
-            .argName("size of test")
+    Option maxsizeoption = Option.builder("max").type(Integer.class)
+            .argName("max size of test")
             .hasArg()
             .desc("maximum size of each generated test")
+            .build();
+    Option minsizeoption = Option.builder("min").type(Integer.class)
+            .argName("min size of test")
+            .hasArg()
+            .desc("minimum size of each generated test")
             .build();
     Option grammarfile = Option.builder("file").argName("grammar file")
                                       .hasArg()
@@ -71,7 +76,8 @@ public class Main {
     options.addOption(maxoption);
     options.addOption(depthoption);
     options.addOption(usemingen);
-    options.addOption(sizeoption);
+    options.addOption(maxsizeoption);
+    options.addOption(minsizeoption);
     try {
       // parse the command line arguments
       CommandLine line = parser.parse(options, args);
@@ -81,19 +87,23 @@ public class Main {
       }
       else if(line.hasOption("file")) {
         String filename = line.getOptionValue("file");
-        int max = 100;
+        int num = 100;
         int depth = 2;
-        int size = 4;
+        int max = 4;
+        int min = 1;
         String extStr = "txt";
         boolean useMinGen = true;
         if(line.hasOption("num")) {
-          max = Integer.valueOf(line.getOptionValue("num"));
+          num = Integer.valueOf(line.getOptionValue("num"));
         }
         if(line.hasOption("dep")) {
           depth = Integer.valueOf(line.getOptionValue("dep"));
         }
-        if(line.hasOption("size")) {
-          size = Integer.valueOf(line.getOptionValue("size"));
+        if(line.hasOption("max")) {
+          max = Integer.valueOf(line.getOptionValue("max"));
+        }
+        if(line.hasOption("min")) {
+          min = Integer.valueOf(line.getOptionValue("min"));
         }
         if(line.hasOption("mingen")) {
           useMinGen = Boolean.valueOf(line.getOptionValue("mingen"));
@@ -108,7 +118,7 @@ public class Main {
           bnfParser grammarparser = new bnfParser(tokens);
           //grammarparser.setTrace(true);
           ParserRuleContext tree = grammarparser.rulelist();
-          GeneratorVisitor extractor = new GeneratorVisitor(max,depth,size,useMinGen);
+          GeneratorVisitor extractor = new GeneratorVisitor(num,depth,min,max,useMinGen);
           extractor.visit(tree);
           List<String> generatedTests = extractor.getTests();
           System.out.println("Generating tests ...");

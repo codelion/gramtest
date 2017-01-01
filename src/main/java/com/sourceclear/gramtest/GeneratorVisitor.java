@@ -4,11 +4,7 @@
 
 package com.sourceclear.gramtest;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 /**
  *
@@ -25,6 +21,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   private int maxNum = 100;
   private int maxDepth = 2;
   private int maxSize = 4;
+  private int minSize = 1;
   private boolean useMinimalGenerator = true;
   private List<String> tests = new LinkedList<>();
   private final Stack<String> prodHist = new Stack<>();
@@ -34,10 +31,11 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   GeneratorVisitor() {
   }
   
-  GeneratorVisitor(int max, int depth, int size, boolean useMinimalGenerator) {
-    this.maxNum = max;
+  GeneratorVisitor(int num, int depth, int min, int max, boolean useMinimalGenerator) {
+    this.maxNum = num;
     this.maxDepth = depth;
-    this.maxSize = size;
+    this.minSize = min;
+    this.maxSize = max;
     this.useMinimalGenerator = useMinimalGenerator;
   }
 
@@ -163,6 +161,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     }
     */
     sentences.addAll(visitRule_(ctx.rule_(0)));
+    sentences.removeAll(Collections.singleton(""));
     if(sentences.size() > maxNum)
       tests = sentences.subList(0, maxNum); // return only top maxNum test cases
     else tests = sentences;
@@ -207,7 +206,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     }
     for(String s1 : preList) {
       for(String s2 : postList) {
-        if(combList.size() < maxNum && (s1.length() + s2.length()) < maxSize
+        if(combList.size() < maxNum && minSize <= (s1.length() + s2.length()) && (s1.length() + s2.length()) < maxSize
                 && !(s1.isEmpty() && s2.isEmpty()))
           combList.add(s1+s2);
       }

@@ -15,7 +15,8 @@ public class TestRunner implements Runnable {
   private ParserRuleContext tree;
   private GeneratorVisitor extractor;
   private int depth = 2;
-  private int size = 4;
+  private int max = 4;
+  private int min = 1;
   private BlockingQueue<String> queue;
 
   TestRunner(InputStream bnfGrammar, BlockingQueue<String> queue) throws IOException {
@@ -26,19 +27,20 @@ public class TestRunner implements Runnable {
     this.queue = queue;
   }
 
-  TestRunner(InputStream bnfGrammar, BlockingQueue<String> queue, int depth, int size) throws IOException {
+  TestRunner(InputStream bnfGrammar, BlockingQueue<String> queue, int depth, int min, int max) throws IOException {
     Lexer lexer = new bnfLexer(new ANTLRInputStream(bnfGrammar));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     bnfParser grammarparser = new bnfParser(tokens);
     this.tree = grammarparser.rulelist();
     this.queue = queue;
     this.depth = depth;
-    this.size = size;
+    this.max = max;
+    this.min = min;
   }
 
   public void run() {
     while(true) {
-      this.extractor = new GeneratorVisitor(depth * size, depth, size, true);
+      this.extractor = new GeneratorVisitor(depth * max, depth, min, max, true);
       this.extractor.visit(tree);
       List<String> generatedTests = this.extractor.getTests();
       for (String s: generatedTests)
@@ -47,8 +49,8 @@ public class TestRunner implements Runnable {
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
-      if((depth + size) % 2 == 0) depth++;
-      else size++;
+      if((depth + max) % 2 == 0) depth++;
+      else max++;
     }
   }
 

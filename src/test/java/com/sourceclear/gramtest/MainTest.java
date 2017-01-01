@@ -73,7 +73,7 @@ public class MainTest {
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     bnfParser grammarparser = new bnfParser(tokens);
     ParserRuleContext tree = grammarparser.rulelist();
-    GeneratorVisitor extractor = new GeneratorVisitor(100,2,100,true);
+    GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
     Assert.assertEquals(100,generatedTests.size());
@@ -84,16 +84,16 @@ public class MainTest {
    * @throws java.io.IOException
    */
   @Test
-  @Ignore("Long running test")
+  //@Ignore("Long running test")
   public void testURLGram() throws IOException {
     Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/url.bnf")));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     bnfParser grammarparser = new bnfParser(tokens);
     ParserRuleContext tree = grammarparser.rulelist();
-    GeneratorVisitor extractor = new GeneratorVisitor(100,2,100,true);
+    GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(100,generatedTests.size());
+    Assert.assertEquals(52, generatedTests.size());
   }
   
 }
