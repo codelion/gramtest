@@ -84,7 +84,7 @@ public class MainTest {
    * @throws java.io.IOException
    */
   @Test
-  //@Ignore("Long running test")
+  @Ignore("Long running test")
   public void testURLGram() throws IOException {
     Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/url.bnf")));
     CommonTokenStream tokens = new CommonTokenStream(lexer);

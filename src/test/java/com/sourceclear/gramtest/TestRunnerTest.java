@@ -1,6 +1,7 @@
 package com.sourceclear.gramtest;
 
 import java.io.IOException;
+
 import org.junit.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.SynchronousQueue;
@@ -18,7 +19,7 @@ public class TestRunnerTest {
   @Ignore("Non terminating test case")
   public void testQueueGenerator() throws IOException, InterruptedException {
     final BlockingQueue<String> queue = new SynchronousQueue<>();
-    TestRunner continuousRunner = new TestRunner(getClass().getResourceAsStream("/arithexp.bnf"), queue);
+    TestRunner continuousRunner = new TestRunner(getClass().getResourceAsStream("/url.bnf"), queue, 10, 8, 16);
     new Thread(continuousRunner).start();
     consumeTests(queue);
   }
