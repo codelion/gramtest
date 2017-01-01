@@ -13,6 +13,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.junit.Assert;
+import org.junit.Ignore;
 
 /**
  *
@@ -83,6 +84,7 @@ public class MainTest extends TestCase {
    * Test with url grammar
    * @throws java.io.IOException
    */
+  @Ignore("long running test")
   public void testURLGram() throws IOException {
     Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/url.bnf")));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
