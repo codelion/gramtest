@@ -7,38 +7,35 @@ package com.sourceclear.gramtest;
 
 import java.io.IOException;
 import java.util.List;
-import junit.framework.TestCase;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.junit.Assert;
-import org.junit.Ignore;
+import org.junit.*;
 
 /**
  *
  * @author asankhaya
  */
-public class MainTest extends TestCase {
+public class MainTest {
   
   public MainTest(String testName) {
     super(testName);
   }
   
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
   }
   
-  @Override
-  protected void tearDown() throws Exception {
-    super.tearDown();
+  @After
+  public void tearDown() throws Exception {
   }
 
   /**
    * Test with arithmetic expressions grammar
    * @throws java.io.IOException
    */
+  @Test
   public void testArithExpGram() throws IOException {
     Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/arithexp.bnf")));        
     CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -54,6 +51,7 @@ public class MainTest extends TestCase {
    * Test with course codes grammar
    * @throws java.io.IOException
    */
+  @Test
   public void testCourseCodeGram() throws IOException {
     Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/coursecodes.bnf")));        
     CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -69,6 +67,7 @@ public class MainTest extends TestCase {
    * Test with main grammar
    * @throws java.io.IOException
    */
+  @Test
   public void testMainStrGram() throws IOException {
     Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/main.bnf")));        
     CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -84,6 +83,7 @@ public class MainTest extends TestCase {
    * Test with url grammar
    * @throws java.io.IOException
    */
+  @Test
   @Ignore("long running test")
   public void testURLGram() throws IOException {
     Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/url.bnf")));
