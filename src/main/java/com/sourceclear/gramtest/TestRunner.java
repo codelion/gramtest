@@ -14,6 +14,8 @@ public class TestRunner implements Runnable {
 
   private ParserRuleContext tree;
   private GeneratorVisitor extractor;
+  private int depth = 2;
+  private int size = 4;
   private BlockingQueue<String> queue;
 
   TestRunner(InputStream bnfGrammar, BlockingQueue<String> queue) throws IOException {
@@ -24,9 +26,17 @@ public class TestRunner implements Runnable {
     this.queue = queue;
   }
 
+  TestRunner(InputStream bnfGrammar, BlockingQueue<String> queue, int depth, int size) throws IOException {
+    Lexer lexer = new bnfLexer(new ANTLRInputStream(bnfGrammar));
+    CommonTokenStream tokens = new CommonTokenStream(lexer);
+    bnfParser grammarparser = new bnfParser(tokens);
+    this.tree = grammarparser.rulelist();
+    this.queue = queue;
+    this.depth = depth;
+    this.size = size;
+  }
+
   public void run() {
-    int depth = 1;
-    int size = 1;
     while(true) {
       this.extractor = new GeneratorVisitor(depth + size, depth, size, true);
       this.extractor.visit(tree);
