@@ -31,10 +31,10 @@ public class GeneratorVisitor extends bnfBaseVisitor {
           
   /////////////////////////////// Constructors \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   
-  public GeneratorVisitor() {
+  GeneratorVisitor() {
   }
   
-  public GeneratorVisitor(int max, int depth, int size, boolean useMinimalGenerator) {
+  GeneratorVisitor(int max, int depth, int size, boolean useMinimalGenerator) {
     this.maxNum = max;
     this.maxDepth = depth;
     this.maxSize = size;
@@ -151,7 +151,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
 
   @Override
   public Object visitRulelist(bnfParser.RulelistContext ctx) {
-    List<String> sentences = new LinkedList();
+    List<String> sentences = new LinkedList<>();
     for(bnfParser.Rule_Context rc : ctx.rule_()) {
       productionsMap.put(rc.lhs().id().getText(), rc.rhs());
     }
@@ -179,7 +179,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     }
     return s;
   }
-  
+
   private List<String> generateAllStrings(List<List<String>> strList, List<String> result) {
     if(strList.size() > 0) {
       List<String> newResult = combineTwoLists(result,strList.remove(0));
@@ -188,10 +188,10 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     }
     return result;
   }
-  
+
   private List<String> combineTwoLists(List<String> preList, List<String> postList) {
     List<String> combList = new LinkedList<>();
-    
+
     if(useMinimalGenerator) {
       Stack<String> preStack = new Stack<>();
       preStack.addAll(preList);
@@ -200,13 +200,15 @@ public class GeneratorVisitor extends bnfBaseVisitor {
       while(!preStack.empty() && !postStack.empty()) {
         String s1 = preStack.pop();
         String s2 = postStack.pop();
-        if(combList.size() < maxNum && (s1.length() + s2.length()) < maxSize)
+        if(combList.size() < maxNum && (s1.length() + s2.length()) < maxSize
+                && !(s1.isEmpty() && s2.isEmpty()))
           combList.add(s1+s2);
       }
     }
     for(String s1 : preList) {
       for(String s2 : postList) {
-        if(combList.size() < maxNum && (s1.length() + s2.length()) < maxSize)
+        if(combList.size() < maxNum && (s1.length() + s2.length()) < maxSize
+                && !(s1.isEmpty() && s2.isEmpty()))
           combList.add(s1+s2);
       }
     }
@@ -218,5 +220,5 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   public List<String> getTests() {
     return tests;
   }
-  
+
 }
