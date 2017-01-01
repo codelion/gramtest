@@ -14,10 +14,11 @@ usage: gramtest [options]
  -ext <extension>              file extension for generated tests
  -file <grammar file>          path to the grammar file (in BNF notation)
  -h,--help                     prints this message
+ -max <max size of test>       maximum size of each generated test
+ -min <min size of test>       minimum size of each generated test
  -mingen <minimal generator>   use minimal sentence generation
                                (true/false)
  -num <number of tests>        maximum number of test cases
- -size <size of test>          maximum size of each generated test
  -tests <test folder>          path to the folder to store generated tests
 ```
 ## Articles
