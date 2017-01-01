@@ -161,7 +161,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     }
     */
     sentences.addAll(visitRule_(ctx.rule_(0)));
-    sentences.removeAll(Collections.singleton(""));
+    sentences.removeIf(s -> s.length() < minSize);
     if(sentences.size() > maxNum)
       tests = sentences.subList(0, maxNum); // return only top maxNum test cases
     else tests = sentences;
