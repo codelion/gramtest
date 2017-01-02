@@ -1,4 +1,4 @@
-# Grammar based test case generation
+# GramTest
 This tool allows you to generate test cases based on arbitrary user defined grammars. The input grammar is given in BNF notation. Potential applications include fuzzing and automated testing.
 
 ## Instructions
@@ -21,6 +21,11 @@ usage: gramtest [options]
  -num <number of tests>        maximum number of test cases
  -tests <test folder>          path to the folder to store generated tests
 ```
+## Bugs found using GramTest
+| Project | Reference | Status |
+|---------|---------|--------|
+| Apache Commons Validator | https://issues.apache.org/jira/browse/VALIDATOR-410 | Open | 
+
 ## Articles
 
 - [How does grammar-based test case generation work?](https://blog.srcclr.com/how-does-grammar-based-test-case-generation-work/)
