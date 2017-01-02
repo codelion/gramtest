@@ -2,7 +2,11 @@ package com.sourceclear.gramtest;
 
 import java.io.IOException;
 
+import org.apache.commons.validator.routines.UrlValidator;
 import org.junit.*;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 
@@ -25,9 +29,18 @@ public class TestRunnerTest {
   }
 
   private void consumeTests(BlockingQueue queue) throws InterruptedException {
+    UrlValidator validator = new UrlValidator(UrlValidator.ALLOW_ALL_SCHEMES +
+            UrlValidator.ALLOW_2_SLASHES + UrlValidator.ALLOW_LOCAL_URLS);
     while(true) {
       String testCase = (String) queue.take();
-      System.out.println(testCase);
+      if(!validator.isValid(testCase)) {
+        try {
+          new URL(testCase);
+          System.out.println(testCase);
+        } catch (MalformedURLException e) {
+          System.out.println(e.getMessage());
+        }
+      }
     }
   }
 
