@@ -80,6 +80,22 @@ public class MainTest {
   }
 
   /**
+   * Test with JSON grammar
+   * @throws java.io.IOException
+   */
+  @Test
+  public void testJSONGram() throws IOException {
+    Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/json.bnf")));
+    CommonTokenStream tokens = new CommonTokenStream(lexer);
+    bnfParser grammarparser = new bnfParser(tokens);
+    ParserRuleContext tree = grammarparser.rulelist();
+    GeneratorVisitor extractor = new GeneratorVisitor();
+    extractor.visit(tree);
+    List<String> generatedTests = extractor.getTests();
+    Assert.assertEquals(100,generatedTests.size());
+  }
+
+  /**
    * Test with url grammar
    * @throws java.io.IOException
    */
