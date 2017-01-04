@@ -1,7 +1,7 @@
 <JSON>      ::= <value>
 <value>     ::= <object> | <array> | <boolean> | <string> | <number>
-<array>     ::= "[" (<value>) { , <value>} "]"
-<object>    ::= "{" (<property>) { , <property>} "}"
+<array>     ::= "[" <value> { , <value>} "]"
+<object>    ::= "{" <property> { , <property>} "}"
 <property>  ::= <string> : <value>
 <boolean>   ::= true | false
 <string>    ::= <alpha> [<string>]
