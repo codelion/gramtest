@@ -81,7 +81,8 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     List<String> result = new LinkedList<>();
     if(ctx.zeroormore() != null) {
       result = visitAlternatives(ctx.zeroormore().alternatives()); // one time
-      result.add(""); // zero time
+      List<String> twoLs = combineTwoLists(result, Collections.singletonList("")); // zero time
+      result.addAll(twoLs);
     }
     else if(ctx.oneormore() != null) {
       result = visitAlternatives(ctx.oneormore().alternatives()); // one time
@@ -89,7 +90,6 @@ public class GeneratorVisitor extends bnfBaseVisitor {
       result.addAll(twoLs);
     }
     else if(ctx.optional() != null) {
-      //currently similar to zero of more times
       result = visitAlternatives(ctx.optional().alternatives()); // one time
       result.add(""); // zero time
     }
