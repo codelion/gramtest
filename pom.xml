@@ -26,10 +26,22 @@
             <groupId>junit</groupId>
             <version>4.11</version>
         </dependency>
+        <!--
         <dependency>
             <groupId>com.eclipsesource.minimal-json</groupId>
             <artifactId>minimal-json</artifactId>
             <version>0.9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.noggit</groupId>
+            <artifactId>noggit</artifactId>
+            <version>0.7</version>
+        </dependency>
+        -->
+        <dependency>
+            <groupId>com.grack</groupId>
+            <artifactId>nanojson</artifactId>
+            <version>1.1</version>
         </dependency>
     </dependencies>
     <properties>
