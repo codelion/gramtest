@@ -25,6 +25,7 @@ usage: gramtest [options]
 | Project | Reference | Status |
 |---------|---------|--------|
 | Apache Commons Validator | https://issues.apache.org/jira/browse/VALIDATOR-410 | Open | 
+| segmentio/is-url | https://github.com/segmentio/is-url/issues/15 | Open |
 
 ## Articles
 
