@@ -76,7 +76,7 @@ public class MainTest {
     GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(100,generatedTests.size());
+    Assert.assertEquals(100, generatedTests.size());
   }
 
   /**

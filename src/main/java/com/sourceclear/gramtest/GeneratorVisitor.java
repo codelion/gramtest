@@ -112,8 +112,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     List<List<String>> comStr = new LinkedList<>();
     for(bnfParser.ElementContext ec1 : ctx.element()) {
       List<String> slist = visitElement(ec1);
-      if(slist.isEmpty()) return new LinkedList<>();
-      else comStr.add(slist);
+      if(!slist.isEmpty()) comStr.add(slist);
     }
     List<String> emptyStr = new LinkedList<>();
     emptyStr.add("");
