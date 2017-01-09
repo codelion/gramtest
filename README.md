@@ -32,3 +32,12 @@ usage: gramtest [options]
 
 - [How does grammar-based test case generation work?](https://blog.srcclr.com/how-does-grammar-based-test-case-generation-work/)
 - [Practical tips for implementing grammar-based test case generation](https://blog.srcclr.com/practical-tips-for-implementing-grammar-based-test-case-generation/)
+
+## FAQ
+
+- _Can I use this particular grammar with GramTest?_
+- As long as the input grammar is described in BNF it is possible to use it with GramTest to generate random strings. Several grammars that you find online are not given in proper BNF format, have comments/text in some productions, or do not have complete clauses. Verify that the grammar you are using doesn't have any bugs before using it. 
+
+- _Why did you choose BNF and not EBNF/ABNF/etc. as the input format for GramTest?_
+- BNF was the simplest of all formats to use, it is certainly possible to implement another input format but it is going to be a non-trivial excercise. You will need to implement your own [generator](https://github.com/codelion/gramtest/blob/master/src/main/java/com/sourceclear/gramtest/GeneratorVisitor.java) that can create strings based on each type of production in the grammar. 
+
