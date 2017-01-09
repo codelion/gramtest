@@ -44,7 +44,7 @@ public class MainTest {
     GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(100,generatedTests.size());
+    Assert.assertEquals(100, generatedTests.size());
   }
   
   /**
@@ -60,7 +60,7 @@ public class MainTest {
     GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(100,generatedTests.size());
+    Assert.assertEquals(100, generatedTests.size());
   }
   
   /**
@@ -92,7 +92,23 @@ public class MainTest {
     GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(100,generatedTests.size());
+    Assert.assertEquals(100, generatedTests.size());
+  }
+
+  /**
+   * Test with Datalog grammar
+   * @throws java.io.IOException
+   */
+  @Test
+  public void testDatalogGram() throws IOException {
+    Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/datalog.bnf")));
+    CommonTokenStream tokens = new CommonTokenStream(lexer);
+    bnfParser grammarparser = new bnfParser(tokens);
+    ParserRuleContext tree = grammarparser.rulelist();
+    GeneratorVisitor extractor = new GeneratorVisitor();
+    extractor.visit(tree);
+    List<String> generatedTests = extractor.getTests();
+    Assert.assertEquals(100, generatedTests.size());
   }
 
   /**
