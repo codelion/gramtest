@@ -8,6 +8,6 @@
 <comma>     ::= ,
 <cr>        ::= !
 <dquote>    ::= "
-<lf>        ::=
+<lf>        ::= '\u000A'
 <clrf>      ::= <cr> <lf>
-<textdata>  ::=
+<textdata>  ::= '\u0020'-'\u0021' |  '\u0023'-'\u002B' |  '\u002D-'\u007E'
