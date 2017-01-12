@@ -6,6 +6,9 @@
 package com.sourceclear.gramtest;
 
 import java.io.IOException;
+import java.io.Reader;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.List;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -102,6 +105,23 @@ public class MainTest {
   @Test
   public void testDatalogGram() throws IOException {
     Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/datalog.bnf")));
+    CommonTokenStream tokens = new CommonTokenStream(lexer);
+    bnfParser grammarparser = new bnfParser(tokens);
+    ParserRuleContext tree = grammarparser.rulelist();
+    GeneratorVisitor extractor = new GeneratorVisitor();
+    extractor.visit(tree);
+    List<String> generatedTests = extractor.getTests();
+    Assert.assertEquals(100, generatedTests.size());
+  }
+
+  /**
+   * Test with CSV grammar
+   * @throws java.io.IOException
+   */
+  @Test
+  public void testCSVGram() throws IOException {
+    Reader r = new InputStreamReader(getClass().getResourceAsStream("/csv.bnf"), "UTF-8");
+    Lexer lexer = new bnfLexer(new ANTLRInputStream(r));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     bnfParser grammarparser = new bnfParser(tokens);
     ParserRuleContext tree = grammarparser.rulelist();
