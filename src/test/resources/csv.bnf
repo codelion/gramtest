@@ -1,0 +1,14 @@
+<CSV>       ::= [<header>] <record> {<clrf> <record>} [ <optionalclrf> ]
+<header>    ::= <name> { <comma> <name>}
+<record>    ::= <field> { <comma> <field>}
+<name>      ::= <field>
+<field>     ::= <escaped> | <nonescaped>
+<escaped>   ::= <dquote> (<textdata> |<comma> |<cr> | <lf> | <2dquote>) <dquote>
+<nonescaped> ::= (<textdata>)
+<comma>     ::= ,
+<cr>        ::= '\u000D'
+<dquote>    ::= '\u0022'
+<lf>        ::= '\u000A'
+<clrf>      ::= <cr> <lf>
+<textdata>  ::= '\u0020'-'\u0021' |  '\u0023'-'\u002B' |  '\u002D-'\u007E'
+
