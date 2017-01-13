@@ -125,7 +125,7 @@ public class MainTest {
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     bnfParser grammarparser = new bnfParser(tokens);
     ParserRuleContext tree = grammarparser.rulelist();
-    GeneratorVisitor extractor = new GeneratorVisitor();
+    GeneratorVisitor extractor = new GeneratorVisitor(100,4,1,32,true);
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
     Assert.assertEquals(100, generatedTests.size());
