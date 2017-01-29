@@ -16,7 +16,7 @@ public class TestRunnerTest {
    * @throws java.io.IOException
    */
   @Test
-  @Ignore("Non terminating test case")
+  @Ignore("Ignoring non terminating test case")
   public void testQueueGenerator() throws IOException, InterruptedException {
     final BlockingQueue<String> queue = new SynchronousQueue<>();
     TestRunner continuousRunner = new TestRunner(getClass().getResourceAsStream("/url.bnf"), queue, 10, 8, 16);
