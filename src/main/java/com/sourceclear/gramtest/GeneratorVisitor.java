@@ -50,10 +50,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
 
   @Override
   public String visitText(bnfParser.TextContext ctx) {
-    if(ctx.STRINGLITERAL() != null) {
-      return unquote(ctx.getText());
-    }
-    return ctx.getText();
+    return unquote(ctx.getText());
   }
 
   @Override

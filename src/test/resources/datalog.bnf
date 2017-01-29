@@ -6,7 +6,7 @@
 <clause>        ::=     <literal> ":-"  <body> | <literal>
 <body>          ::=     <literal> "," <body> | <literal>
 <literal>       ::=     <predicate-sym> "(" ")" | <predicate-sym> "(" <terms> ")"
-                      | <predicate-sym> | <term> "=" <term> | <term> "!=" <term>
+                        | <predicate-sym> | <term> "=" <term> | <term> "!=" <term>
 <predicate-sym> ::=     <STRING>
 <terms>         ::=     <term> | <term> "," <terms>
 <term>          ::=     <VARIABLE> | <constant>

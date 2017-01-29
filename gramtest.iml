@@ -18,9 +18,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.antlr:antlr4-runtime:4.5" level="project" />
-    <orderEntry type="library" name="Maven: org.abego.treelayout:org.abego.treelayout.core:1.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.antlr:antlr4-maven-plugin:4.5" level="project" />
+    <orderEntry type="library" name="Maven: org.antlr:antlr4-runtime:4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.antlr:antlr4-maven-plugin:4.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-plugin-api:3.0.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-model:3.0.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-artifact:3.0.5" level="project" />
@@ -30,6 +29,14 @@
     <orderEntry type="library" name="Maven: org.sonatype.sisu:sisu-inject-bean:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.sonatype.sisu:sisu-guice:no_aop:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.sonatype.sisu:sisu-guava:0.9.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-compiler-api:2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-utils:3.0.8" level="project" />
+    <orderEntry type="library" name="Maven: org.sonatype.plexus:plexus-build-api:0.0.7" level="project" />
+    <orderEntry type="library" name="Maven: org.antlr:antlr4:4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.antlr:antlr-runtime:3.5.2" level="project" />
+    <orderEntry type="library" name="Maven: org.antlr:ST4:4.0.8" level="project" />
+    <orderEntry type="library" name="Maven: org.abego.treelayout:org.abego.treelayout.core:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish:javax.json:1.0.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-project:2.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-settings:2.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-profile:2.2.1" level="project" />
@@ -39,16 +46,10 @@
     <orderEntry type="library" name="Maven: backport-util-concurrent:backport-util-concurrent:3.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-plugin-registry:2.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-interpolation:1.11" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-utils:1.5.15" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-container-default:1.0-alpha-9-stable-1" level="project" />
     <orderEntry type="library" name="Maven: classworlds:classworlds:1.1-alpha-2" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-compiler-api:2.2" level="project" />
-    <orderEntry type="library" name="Maven: org.sonatype.plexus:plexus-build-api:0.0.7" level="project" />
-    <orderEntry type="library" name="Maven: org.antlr:antlr4:4.5" level="project" />
-    <orderEntry type="library" name="Maven: org.antlr:antlr-runtime:3.5.2" level="project" />
-    <orderEntry type="library" name="Maven: org.antlr:ST4:4.0.8" level="project" />
-    <orderEntry type="library" name="Maven: commons-cli:commons-cli:1.3" level="project" />
-    <orderEntry type="library" name="Maven: junit:junit:4.11" level="project" />
+    <orderEntry type="library" name="Maven: commons-cli:commons-cli:1.3.1" level="project" />
+    <orderEntry type="library" name="Maven: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
   </component>
 </module>

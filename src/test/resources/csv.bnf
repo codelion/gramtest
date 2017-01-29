@@ -5,9 +5,9 @@
 <field>     ::= <escaped> | <nonescaped>
 <escaped>   ::= <dquote> (<textdata> | <comma> | <cr> | <lf>) <dquote>
 <nonescaped> ::= (<textdata>)
-<comma>     ::= ,
+<comma>     ::= ","
 <cr>        ::= "\r"
-<dquote>    ::= $$$
+<dquote>    ::= """
 <lf>        ::= "\n"
 <crlf>      ::= <cr> <lf>
 <textdata>  ::= <text> [<textdata>]
