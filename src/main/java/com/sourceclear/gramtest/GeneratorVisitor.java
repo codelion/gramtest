@@ -108,8 +108,10 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   public List<String> visitAlternative(bnfParser.AlternativeContext ctx) {
     List<List<String>> comStr = new LinkedList<>();
     for(bnfParser.ElementContext ec1 : ctx.element()) {
-      List<String> slist = visitElement(ec1);
-      if(!slist.isEmpty()) comStr.add(slist);
+      if(prodHist.size() < maxDepth) {
+        List<String> slist = visitElement(ec1);
+        if (!slist.isEmpty()) comStr.add(slist);
+      }
     }
     List<String> emptyStr = new LinkedList<>();
     emptyStr.add("");
@@ -120,8 +122,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   public List<String> visitAlternatives(bnfParser.AlternativesContext ctx) {
     List<String> altStrs = new LinkedList<>();
     for(bnfParser.AlternativeContext ac : ctx.alternative()) {
-      if(prodHist.size() < maxDepth)
-        altStrs.addAll(visitAlternative(ac));
+      altStrs.addAll(visitAlternative(ac));
     }
     return altStrs;
   }
