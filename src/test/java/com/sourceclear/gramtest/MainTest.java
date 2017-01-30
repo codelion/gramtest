@@ -63,7 +63,7 @@ public class MainTest {
     GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(100, generatedTests.size());
+    Assert.assertEquals(20, generatedTests.size());
   }
   
   /**
@@ -76,7 +76,7 @@ public class MainTest {
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     bnfParser grammarparser = new bnfParser(tokens);
     ParserRuleContext tree = grammarparser.rulelist();
-    GeneratorVisitor extractor = new GeneratorVisitor(100,2,1,16,true);
+    GeneratorVisitor extractor = new GeneratorVisitor(100,2,1,10,true);
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
     Assert.assertEquals(100, generatedTests.size());
@@ -95,7 +95,7 @@ public class MainTest {
     GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(100, generatedTests.size());
+    Assert.assertEquals(96, generatedTests.size());
   }
 
   /**
@@ -128,7 +128,7 @@ public class MainTest {
     GeneratorVisitor extractor = new GeneratorVisitor(100,4,1,32,true);
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(37, generatedTests.size());
+    Assert.assertEquals(10, generatedTests.size());
   }
 
   /**
@@ -145,7 +145,7 @@ public class MainTest {
     GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(52, generatedTests.size());
+    Assert.assertEquals(9, generatedTests.size());
   }
   
 }

@@ -196,14 +196,13 @@ public class GeneratorVisitor extends bnfBaseVisitor {
       while(!preStack.empty() && !postStack.empty()) {
         String s1 = preStack.pop();
         String s2 = postStack.pop();
-        if(combList.size() < maxNum && (s1.length() + s2.length()) < maxSize
-                && !(s1.isEmpty() && s2.isEmpty()))
+        if(combList.size() < maxNum && !(s1.isEmpty() && s2.isEmpty()))
           combList.add(s1+s2);
       }
     }
     for(String s1 : preList) {
       for(String s2 : postList) {
-        if(combList.size() < maxNum && minSize <= (s1.length() + s2.length()) && (s1.length() + s2.length()) < maxSize
+        if(combList.size() < maxNum && (s1.length() + s2.length()) < maxSize
                 && !(s1.isEmpty() && s2.isEmpty()))
           combList.add(s1+s2);
       }
