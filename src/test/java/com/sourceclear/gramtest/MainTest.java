@@ -63,7 +63,7 @@ public class MainTest {
     GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(20, generatedTests.size());
+    Assert.assertEquals(10, generatedTests.size());
   }
   
   /**
@@ -95,7 +95,7 @@ public class MainTest {
     GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(96, generatedTests.size());
+    Assert.assertEquals(94, generatedTests.size());
   }
 
   /**
@@ -111,7 +111,7 @@ public class MainTest {
     GeneratorVisitor extractor = new GeneratorVisitor();
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(38, generatedTests.size());
+    Assert.assertEquals(15, generatedTests.size());
   }
 
   /**

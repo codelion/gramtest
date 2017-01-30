@@ -158,7 +158,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     }
     */
     sentences.addAll(visitRule_(ctx.rule_(0)));
-    sentences.removeIf(s -> s.length() < minSize);
+    //sentences.removeIf(s -> s.length() < minSize);
     if(sentences.size() > maxNum)
       tests = sentences.subList(0, maxNum); // return only top maxNum test cases
     else tests = sentences;
@@ -196,7 +196,8 @@ public class GeneratorVisitor extends bnfBaseVisitor {
       while(!preStack.empty() && !postStack.empty()) {
         String s1 = preStack.pop();
         String s2 = postStack.pop();
-        if(combList.size() < maxNum && !(s1.isEmpty() && s2.isEmpty()))
+        if(combList.size() < maxNum && (s1.length() + s2.length()) > minSize
+            && !(s1.isEmpty() && s2.isEmpty()))
           combList.add(s1+s2);
       }
     }
