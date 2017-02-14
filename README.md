@@ -21,6 +21,7 @@ usage: gramtest [options]
  -num <number of tests>        maximum number of test cases
  -tests <test folder>          path to the folder to store generated tests
 ```
+
 ## Bugs found using GramTest
 | Project | Reference | Status |
 |---------|---------|--------|
