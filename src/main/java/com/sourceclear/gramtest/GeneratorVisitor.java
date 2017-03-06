@@ -102,14 +102,17 @@ public class GeneratorVisitor extends bnfBaseVisitor {
       String lhs = ctx.id().getText();
       prodHist.push(lhs);
       bnfParser.RhsContext rhs = productionsMap.get(lhs);
-      if(rhs.alternatives() != null && !rhs.alternatives().alternative().
-          stream().allMatch(ac -> isTerminalContext(ac.element()))) {
+      if(rhs.alternatives() == null || rhs.alternatives().alternative()
+              .stream().allMatch(ac -> isTerminalContext(ac.element()))) {
+        return visitRhs(productionsMap.get(lhs));
+      }
+      else {
         int choices = rhs.alternatives().alternative().size();
-        result = visitAlternative(rhs.alternatives().alternative((new Random()).nextInt(choices)));
+        int rand = new Random().nextInt(choices);
+        result = visitAlternative(rhs.alternatives().alternative(rand));
         if(!prodHist.empty()) prodHist.pop();
         return result;
       }
-      else return visitRhs(productionsMap.get(lhs));
     }
     return result;
   }
@@ -223,7 +226,7 @@ public class GeneratorVisitor extends bnfBaseVisitor {
 
   private Boolean isTerminalContext(List<bnfParser.ElementContext> eclist) {
     for(bnfParser.ElementContext ec : eclist) {
-      if (ec.text() == null && ec.captext() == null && ec.id() == null) return false;
+      if (ec.text() == null && ec.captext() == null) return false;
     }
     return true;
   }

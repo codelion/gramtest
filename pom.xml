@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sourceclear</groupId>
     <artifactId>gramtest</artifactId>
-    <version>0.2.2-SNAPSHOT</version>
+    <version>0.2.2</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -26,7 +26,7 @@
             <groupId>junit</groupId>
             <version>4.12</version>
         </dependency>
-        <!-- The following two dependencies are added just overide the transitives -->
+        <!-- The following two dependencies are added just override the transitives -->
         <dependency>
             <groupId>org.sonatype.sisu</groupId>
             <artifactId>sisu-inject-bean</artifactId>
