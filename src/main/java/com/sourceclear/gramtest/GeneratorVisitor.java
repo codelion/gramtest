@@ -4,6 +4,8 @@
 
 package com.sourceclear.gramtest;
 
+import org.antlr.v4.runtime.RuleContext;
+
 import java.util.*;
 
 /**
@@ -99,7 +101,15 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     else {
       String lhs = ctx.id().getText();
       prodHist.push(lhs);
-      return visitRhs(productionsMap.get(lhs));
+      bnfParser.RhsContext rhs = productionsMap.get(lhs);
+      if(rhs.alternatives() != null && !rhs.alternatives().alternative().
+          stream().allMatch(ac -> isTerminalContext(ac.element()))) {
+        int choices = rhs.alternatives().alternative().size();
+        result = visitAlternative(rhs.alternatives().alternative((new Random()).nextInt(choices)));
+        if(!prodHist.empty()) prodHist.pop();
+        return result;
+      }
+      else return visitRhs(productionsMap.get(lhs));
     }
     return result;
   }
@@ -211,6 +221,12 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     return combList;
   }
 
+  private Boolean isTerminalContext(List<bnfParser.ElementContext> eclist) {
+    for(bnfParser.ElementContext ec : eclist) {
+      if (ec.text() == null && ec.captext() == null && ec.id() == null) return false;
+    }
+    return true;
+  }
   //---------------------------- Property Methods -----------------------------
   
   public List<String> getTests() {
