@@ -102,8 +102,9 @@ public class GeneratorVisitor extends bnfBaseVisitor {
       String lhs = ctx.id().getText();
       prodHist.push(lhs);
       bnfParser.RhsContext rhs = productionsMap.get(lhs);
-      if(rhs.alternatives() == null || rhs.alternatives().alternative()
-              .stream().allMatch(ac -> isTerminalContext(ac.element()))) {
+      if(rhs.alternatives() == null ||
+          rhs.alternatives().alternative().stream().allMatch(ac -> isTerminalContext(ac.element())) ||
+          prodHist.size() < productionsMap.size()) {
         return visitRhs(productionsMap.get(lhs));
       }
       else {
