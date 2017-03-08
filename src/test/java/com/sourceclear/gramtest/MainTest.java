@@ -103,6 +103,7 @@ public class MainTest {
    * @throws java.io.IOException
    */
   @Test
+  @Ignore("Ignoring long running test")
   public void testDatalogGram() throws IOException {
     Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/datalog.bnf")));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
