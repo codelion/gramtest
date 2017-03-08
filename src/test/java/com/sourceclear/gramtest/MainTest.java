@@ -92,10 +92,10 @@ public class MainTest {
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     bnfParser grammarparser = new bnfParser(tokens);
     ParserRuleContext tree = grammarparser.rulelist();
-    GeneratorVisitor extractor = new GeneratorVisitor();
+    GeneratorVisitor extractor = new GeneratorVisitor(100,2,10,100,true);
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(94, generatedTests.size());
+    Assert.assertEquals(100, generatedTests.size());
   }
 
   /**
@@ -103,15 +103,16 @@ public class MainTest {
    * @throws java.io.IOException
    */
   @Test
+  @Ignore("Ignoring long running test")
   public void testDatalogGram() throws IOException {
     Lexer lexer = new bnfLexer(new ANTLRInputStream(getClass().getResourceAsStream("/datalog.bnf")));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     bnfParser grammarparser = new bnfParser(tokens);
     ParserRuleContext tree = grammarparser.rulelist();
-    GeneratorVisitor extractor = new GeneratorVisitor();
+    GeneratorVisitor extractor = new GeneratorVisitor(100,2,8,16,true);
     extractor.visit(tree);
     List<String> generatedTests = extractor.getTests();
-    Assert.assertEquals(15, generatedTests.size());
+    Assert.assertEquals(100, generatedTests.size());
   }
 
   /**

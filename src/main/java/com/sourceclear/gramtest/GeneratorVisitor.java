@@ -4,6 +4,8 @@
 
 package com.sourceclear.gramtest;
 
+import org.antlr.v4.runtime.RuleContext;
+
 import java.util.*;
 
 /**
@@ -99,7 +101,19 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     else {
       String lhs = ctx.id().getText();
       prodHist.push(lhs);
-      return visitRhs(productionsMap.get(lhs));
+      bnfParser.RhsContext rhs = productionsMap.get(lhs);
+      if(rhs.alternatives() == null ||
+          rhs.alternatives().alternative().stream().allMatch(ac -> isTerminalContext(ac.element())) ||
+          prodHist.size() < productionsMap.size()) {
+        return visitRhs(productionsMap.get(lhs));
+      }
+      else {
+        int choices = rhs.alternatives().alternative().size();
+        int rand = new Random().nextInt(choices);
+        result = visitAlternative(rhs.alternatives().alternative(rand));
+        if(!prodHist.empty()) prodHist.pop();
+        return result;
+      }
     }
     return result;
   }
@@ -121,7 +135,9 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   @Override
   public List<String> visitAlternatives(bnfParser.AlternativesContext ctx) {
     List<String> altStrs = new LinkedList<>();
-    for(bnfParser.AlternativeContext ac : ctx.alternative()) {
+    List<bnfParser.AlternativeContext> acList = ctx.alternative();
+    Collections.shuffle(acList);
+    for(bnfParser.AlternativeContext ac : acList) {
       altStrs.addAll(visitAlternative(ac));
     }
     return altStrs;
@@ -211,6 +227,12 @@ public class GeneratorVisitor extends bnfBaseVisitor {
     return combList;
   }
 
+  private Boolean isTerminalContext(List<bnfParser.ElementContext> eclist) {
+    for(bnfParser.ElementContext ec : eclist) {
+      if (ec.text() == null && ec.captext() == null) return false;
+    }
+    return true;
+  }
   //---------------------------- Property Methods -----------------------------
   
   public List<String> getTests() {
