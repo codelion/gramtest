@@ -135,7 +135,9 @@ public class GeneratorVisitor extends bnfBaseVisitor {
   @Override
   public List<String> visitAlternatives(bnfParser.AlternativesContext ctx) {
     List<String> altStrs = new LinkedList<>();
-    for(bnfParser.AlternativeContext ac : ctx.alternative()) {
+    List<bnfParser.AlternativeContext> acList = ctx.alternative();
+    Collections.shuffle(acList);
+    for(bnfParser.AlternativeContext ac : acList) {
       altStrs.addAll(visitAlternative(ac));
     }
     return altStrs;
