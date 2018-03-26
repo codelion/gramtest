@@ -30,10 +30,10 @@ public class GeneratorVisitor extends bnfBaseVisitor {
           
   /////////////////////////////// Constructors \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   
-  GeneratorVisitor() {
+  public GeneratorVisitor() {
   }
   
-  GeneratorVisitor(int num, int depth, int min, int max, boolean useMinimalGenerator) {
+  public GeneratorVisitor(int num, int depth, int min, int max, boolean useMinimalGenerator) {
     this.maxNum = num;
     this.maxDepth = depth;
     this.minSize = min;

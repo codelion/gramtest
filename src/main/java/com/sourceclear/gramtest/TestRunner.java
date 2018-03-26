@@ -19,7 +19,7 @@ public class TestRunner implements Runnable {
   private int min = 1;
   private BlockingQueue<String> queue;
 
-  TestRunner(InputStream bnfGrammar, BlockingQueue<String> queue) throws IOException {
+  public TestRunner(InputStream bnfGrammar, BlockingQueue<String> queue) throws IOException {
     Lexer lexer = new bnfLexer(new ANTLRInputStream(bnfGrammar));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     bnfParser grammarparser = new bnfParser(tokens);
@@ -27,7 +27,7 @@ public class TestRunner implements Runnable {
     this.queue = queue;
   }
 
-  TestRunner(InputStream bnfGrammar, BlockingQueue<String> queue, int depth, int min, int max) throws IOException {
+  public TestRunner(InputStream bnfGrammar, BlockingQueue<String> queue, int depth, int min, int max) throws IOException {
     Lexer lexer = new bnfLexer(new ANTLRInputStream(bnfGrammar));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     bnfParser grammarparser = new bnfParser(tokens);
