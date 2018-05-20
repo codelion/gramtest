@@ -2,7 +2,7 @@
 This tool allows you to generate test cases based on arbitrary user defined grammars. The input grammar is given in BNF notation. Potential applications include fuzzing and automated testing.
 
 ## Instructions
-We use maven as our build tool. When you compile the project using maven it will generate a single Jar, that can be run from the command line as follows:
+We use maven as our build tool. When you compile the project using maven (`mvn clean package`) it will generate a single all dependencies Jar, that can be run from the command line as follows:
 
 `java -jar gramtest.jar -file grammar.bnf`
 
