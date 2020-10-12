@@ -24,7 +24,7 @@
         <dependency>
             <artifactId>junit</artifactId>
             <groupId>junit</groupId>
-            <version>4.12</version>
+            <version>4.13.1</version>
         </dependency>
         <!-- The following two dependencies are added just override the transitives -->
         <dependency>
