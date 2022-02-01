@@ -32,8 +32,8 @@ usage: gramtest [options]
 
 ## Articles
 - [Continuous fuzzing of Java projects with GramTest](https://lambdasec.github.io/Fuzzing-Java-Libraries-with-GramTest/)
-- [How does grammar-based test case generation work?](https://blog.srcclr.com/how-does-grammar-based-test-case-generation-work/)
-- [Practical tips for implementing grammar-based test case generation](https://blog.srcclr.com/practical-tips-for-implementing-grammar-based-test-case-generation/)
+- [How does grammar-based test case generation work?](https://www.veracode.com/blog/managing-appsec/how-does-grammar-based-test-case-generation-work)
+- [Practical tips for implementing grammar-based test case generation](https://www.veracode.com/blog/secure-development/practical-tips-implementing-grammar-based-test-case-generation)
 
 ## FAQ
 
